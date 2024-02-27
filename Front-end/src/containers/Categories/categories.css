@@ -1,0 +1,201 @@
+.Categories-main{
+    width: 1440px;
+height: 850px;
+background: #ffffff;
+}
+
+.categories-title{
+    color: #76726B;
+-webkit-text-stroke-width: 1;
+-webkit-text-stroke-color: #76726B;
+font: "Merge One";
+font-size: 32px;
+font-style: normal;
+font-weight: 400;
+margin-top: 30px;
+margin-left: 30px;
+line-height: normal;
+letter-spacing: 1.6px;
+}
+
+.div-1{
+    display: inline-flex;
+align-items: flex-start;
+gap: 41px;
+margin-left: 30px;
+margin-top: 20px;
+}
+.bedroom{
+    width: 460px;
+height: 240px;
+display: inline-flex;
+align-items: flex-start;
+border-radius: 25px;
+background: #FFEBCC;
+}
+
+.sofas{
+    width: 382px;
+height: 231px;
+display: inline-flex;
+align-items: flex-start;
+border-radius: 25px;
+background: #E1E0DE;
+}
+
+.div-2{
+    display: inline-flex;
+align-items: flex-end;
+gap: 41px;
+margin-left: 30px;
+margin-top: 20px;
+}
+
+.tables{
+    width: 382px;
+height: 231px;
+border-radius: 25px;
+background: #E1E0DE;
+display: inline-flex;
+align-items: flex-start;
+}
+
+.home{
+    width: 460px;
+height: 240px;
+border-radius: 25px;
+background: #C7BCAA;
+display: inline-flex;
+align-items: flex-start;
+}
+
+.div-3{
+    display: inline-flex;
+align-items: flex-start;
+gap: 40px;
+margin-left: 30px;
+margin-top: 20px;
+}
+.kitchen{
+    width: 460px;
+height: 240px;
+border-radius: 25px;
+background: #FFEBCC;
+display: inline-flex;
+align-items: flex-start;
+}
+.office{
+    width: 566px;
+height: 240px;
+border-radius: 25px;
+background: #FFD28F;
+display: inline-flex;
+align-items: flex-start;
+}
+
+.chair{
+    width: 318px;
+height: 503px;
+flex-shrink: 0;
+border-radius: 25px;
+background: #DFE9FD;
+margin-top: 18px;
+/* margin-left: -100px; */
+}
+.upper-main{
+    display: inline-flex;
+align-items: flex-start;
+gap: 40px;
+}
+.div-1-2{
+    width: 900px;
+}
+.category-title{
+    color: #76726B;
+-webkit-text-stroke-width: 1;
+-webkit-text-stroke-color: #76726B;
+font: "Merge One";
+font-size: 28px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.4px;
+margin-top: 30px;
+margin-left: 30px;
+}
+.shop-now{
+    color: #76726B;
+font: "Merge One";
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+text-decoration-line: underline;
+margin-top: 10px;
+margin-left: 30px;
+}
+.bedroom-image{
+    width: 300px;
+height: 150px;
+margin-right: 40px;
+}
+.sofa-image{
+    width: 187.317px;
+height: 150px;
+margin-top: 40px;
+margin-right: 250px;
+}
+.category-sofa-image{
+    width: 190px;
+    margin-left: 50px;
+    display: inline-flex;
+align-items: center;
+}
+.category-bedroom-image{
+    width: 312.195px;
+    /* background: #76726B; */
+    display: inline-flex;
+align-items: center;
+margin-top: 70px;
+}
+.table-image{
+    width: 187.317px;
+height: 150px;
+margin-top: 40px;
+margin-right: 250px;
+}
+.category-table-image{
+    width: 190px;
+    margin-left: 50px;
+    display: inline-flex;
+align-items: center;
+}
+.chair-image{
+    margin-left: 45px;
+    margin-top: 20px;
+}
+.category-kitchen-image{
+    width: 190px;
+    margin-left: 50px;
+    display: inline-flex;
+align-items: center;
+}
+.kitchen-image{
+    width: 200px;
+height: 170px;
+margin-top: 40px;
+margin-right: 250px;
+}
+.category-office-image{
+    width: 280px;
+    margin-left: 50px;
+    display: inline-flex;
+align-items: center;
+}
+.office-image{
+    width: 280px;
+height: 190px;
+margin-top: 40px;
+margin-right: 250px;
+}

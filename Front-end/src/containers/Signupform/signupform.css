@@ -1,0 +1,184 @@
+.signup-form-main{
+    width: 1440px;
+height: 900px;
+background: #FFF;
+align-items: center;
+justify-content: center;
+display: flex;
+}
+.signup-form{
+    display: inline-flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 47px;
+
+}
+.signup-form-top-text{
+align-items: center;
+justify-content: center;
+gap: 22px;
+}
+.signup{
+    color: #76726B;
+font: "Merge One";
+font-size: 42px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-left: 140px;
+}
+.signup-2{
+    width: 382px;
+height: 23px;
+text-align: center;
+color: #76726B;
+font: "Merge One";
+font-size: 19px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-left: 30px;
+}
+.input-form{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 43px;
+margin-top: 10px;
+}
+.signup-form-bottom{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+align-items: center;
+justify-content: center;
+
+}
+.input-field{
+    width: 500px;
+height: 70px;
+border: 2px solid #D27E00;
+background: #FFF;
+box-shadow: 0px 4px 5px 0px rgba(250, 150, 0, 0.25);
+}
+.input-field:focus{
+    outline: none;
+    left: 16px;
+    bottom: 26px;
+    color: #d27e00;
+    font: "Merge One";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.32px;
+}
+.input-first-name {
+    width: 230px;
+height: 70px;
+flex-shrink: 0;
+border: 2px solid #D27E00;
+background: #FFF;
+box-shadow: 0px 4px 5px 0px rgba(250, 150, 0, 0.25);
+}
+.input-first-name:focus {
+    outline: none;
+    left: 16px;
+    bottom: 26px;
+    color: #d27e00;
+    font: "Merge One";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.32px;
+}
+.input-last-name {
+    width: 230px;
+height: 70px;
+flex-shrink: 0;
+border: 2px solid #D27E00;
+background: #FFF;
+box-shadow: 0px 4px 5px 0px rgba(250, 150, 0, 0.25);
+margin-left: 40px;
+}
+.input-last-name:focus {
+    outline: none;
+    left: 16px;
+    bottom: 26px;
+    color: #d27e00;
+    font: "Merge One";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.32px;
+}
+.signup-button{
+    display: flex;
+width: 500px;
+height: 70px;
+padding: 10px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+background: #FFB039;
+box-shadow: 0px 4px 7px 0px #FA9600;
+color: #FFF;
+font: "Merge One";
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+border: #D27E00;
+}
+.signup-button:focus{
+    outline: none;
+}
+.google-signup{
+    color: #76726B;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+font-family: "Merge One";
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+text-decoration-line: underline;
+text-align: center;
+}
+.sepration{
+    width: 500px;
+height: 3px;
+background: #ff9900;
+stroke: #D27E00;
+}
+.have-acc{
+    color: #76726B;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+font-family: "Merge One";
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+text-decoration-line: underline;
+margin-right: 9px;
+padding-right: 145px;
+
+}
+.login-acc{
+    color: #76726B;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+font-family: "Merge One";
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+text-decoration-line: underline;
+text-align: right;
+}

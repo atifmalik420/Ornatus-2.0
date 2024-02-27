@@ -1,0 +1,384 @@
+.prod-detail-main {
+  display: inline-flex;
+  padding: 103px 81.562px 101.276px 81px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 74px;
+  background: #fff;
+}
+.prod-images {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  position: sticky;
+}
+.prod-view {
+  display: flex;
+  align-items: flex-start;
+  gap: 55px;
+}
+.side-images {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.main-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 541px;
+  height: 421px;
+}
+.prod-buttons {
+  display: flex;
+  width: 546px;
+  align-items: center;
+  gap: 23px;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 85.263px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.thumbnail.selected {
+  border: 2px solid #fa9600;
+}
+
+.navigation-arrows {
+  bottom: 50%;
+  position: relative;
+  width: 123%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  color: #fa9600;
+  cursor: pointer;
+  z-index: 1;
+}
+.arrow-left,
+.arrow-right {
+  width: 70px;
+  height: 40px;
+  z-index: 1;
+}
+.zoom-icon-div {
+  width: 39px;
+  height: 39px;
+  margin-top: 50px;
+  background: transparent;
+  border: 2px solid black;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -10px;
+  margin-right: 10px;
+}
+.zoom-icon {
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+}
+.ar-button {
+  display: flex;
+  width: 220px;
+  height: 60px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border: 1px solid #fa9600;
+  background: #fff;
+  box-shadow: 0px 4px 7px 0px #fa9600;
+  color: #fa9600;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.2px;
+}
+.d3-button {
+  display: flex;
+  width: 220px;
+  height: 60px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border: 1px solid #fa9600;
+  background: #fff;
+  box-shadow: 0px 4px 7px 0px #fa9600;
+  color: #fa9600;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.2px;
+}
+.prod-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.prod-name {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+.prod-id {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.1px;
+}
+.sepration {
+  stroke-width: 3px;
+  width: 100%;
+  stroke: #d27e00;
+  border-bottom: 2px solid #d27e00;
+}
+.delivery-para {
+  color: #d27e00;
+  font: "Merge One";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 543px;
+  letter-spacing: 1px;
+  width: 550px;
+}
+.add-to-cart {
+  display: flex;
+  align-items: center;
+  gap: 43px;
+}
+.add-to-cart-button {
+  display: flex;
+  width: 250px;
+  height: 60px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: #ee940f;
+  box-shadow: 0px 4px 7px 0px #fa9600;
+  color: #fff;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.2px;
+  border: #ee940f;
+}
+.prod-description {
+  width: 550px;
+  color: #76726b;
+  font: "Merge One";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+}
+.specifications-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+.specifications-heading {
+  color: #76726b;
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: #76726b;
+  font: "Merge One";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+.prod-specifications {
+  color: #76726b;
+  line-height: 1.5;
+  font: "Merge One";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+  width: 550px;
+}
+.key-features-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+.key-features-heading {
+  color: #76726b;
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: #76726b;
+  font: "Merge One";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+.key-features {
+  color: #76726b;
+  line-height: 0.1px;
+
+  font: "Merge One";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+  width: 550px;
+}
+.prod-reviews-div {
+  display: flex;
+  height: 550px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+.reviews-heading {
+  color: #76726b;
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: #76726b;
+  font: "Merge One";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+.ratings-div {
+  display: flex;
+  align-items: flex-end;
+  gap: 301px;
+}
+.rating {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.1px;
+}
+
+.star-rating {
+  display: inline-block;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 25px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.star-rating label:before {
+  content: "\2605"; /* Unicode character for a solid star */
+}
+
+.star-rating input:checked ~ label {
+  color: #d27e00; /* Color for selected stars */
+}
+
+.review-title-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.review-title {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.1px;
+}
+
+.review-title-input {
+  width: 460px;
+  height: 65px;
+  border: 2px solid #d27e00;
+  background: #fff;
+  box-shadow: 0px 4px 5px 0px rgba(250, 150, 0, 0.25);
+}
+
+.review-body-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+.body-of-review {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.1px;
+}
+.body-of-review-input {
+  border: 2px solid #d27e00;
+  background: #fff;
+  box-shadow: 0px 4px 5px 0px rgba(250, 150, 0, 0.25);
+  width: 460px;
+  height: 180px;
+}
+
+.submit-review-button {
+  display: flex;
+  width: 250px;
+  height: 60px;
+  padding: 10px 10px 10px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background: #ee940f;
+  box-shadow: 0px 4px 7px 0px #fa9600;
+  color: #fff;
+  border: #d27e00;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.2px;
+}

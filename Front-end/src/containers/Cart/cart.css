@@ -1,0 +1,206 @@
+.cart-main{
+    display: flex;
+padding: 80px 56px 150px 52px;
+align-items: flex-start;
+gap: 120px;
+background: #FFF;
+}
+.cart-items{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 5px;
+}
+.cart-order-summary{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 31px;
+}
+.your-cart{
+    color: #76726B;
+font: "Merge One";
+font-size: 38px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.92px;
+margin-bottom: 18px;
+}
+.order-summary{
+    color: #76726B;
+font: "Merge One";
+font-size: 38px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.92px;
+}
+.cart-headings{
+    color: #76726B;
+font: "Merge One";
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.1px;
+}
+.cart-header-1{
+    display: flex;
+    align-items: flex-start;
+    gap: 475px;
+}
+.cart-header-2{
+    display: flex;
+align-items: flex-start;
+gap: 129px;
+}
+.items-sepration{
+    width: 881.005px;
+height: 3px;
+stroke: #D4840B;
+border: solid 2px #ff9900;
+}
+.cart-item{
+    display: flex;
+align-items: center;
+/* gap: 335px; */
+}
+.cart-product{
+    display: flex;
+    width: 540px;
+align-items: center;
+gap: 29px;
+}
+.cart-prod-QT{
+    display: flex;
+align-items: center;
+gap: 100px;
+position: sticky;
+}
+.cart-prod-img{
+    width: 80px;
+height: 80px;
+}
+.cart-prod-name{
+    color: #76726B;
+font: "Merge One";
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+}
+.quantity-button {
+    display: flex;
+    align-items: center;
+    border: solid 1px #76726B;
+  }
+  
+  .quantity-button__decrease,
+  .quantity-button__increase {
+    background: #FFF;
+    color: #76726B;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 22px;
+  }
+  .quantity-button__decrease{
+    border-right: solid 1px #76726B;
+  }
+  .quantity-button__increase{
+    border-left: solid 1px #76726B;
+  }
+  
+  .quantity-button__quantity {
+    color: #76726B;
+font: "Merge One";
+font-size: 22px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.1px;
+padding: 8px;
+  }
+  .cart-prod-price{
+    color: #76726B;
+font: "Merge One";
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.1px;
+  }
+.cont-shop{
+    color: #76726B;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font: "Merge One";
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.2px;
+    text-decoration-line: underline;
+    margin-top: 20px;
+}
+.notes{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 12px;
+}
+.add-note{
+
+    color: #76726B;
+font: "Merge One";
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.1px;  
+}
+.notes-field{
+    width: 364px;
+height: 189px;
+border: 5px solid #D4840B;
+background: #FFF;
+}
+.notes-field:focus{
+    outline: none;
+}
+.subtotal{
+    display: flex;
+align-items: flex-start;
+gap: 101px;
+color: #76726B;
+font: "Merge One";
+font-size: 26px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.04px;
+padding-right: 20px;
+}
+.checkout-button{
+    display: flex;
+width: 364px;
+height: 70px;
+padding: 10px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+background: #FFB039;
+box-shadow: 0px 4px 7px 0px #FA9600;
+color: #FFF;
+font: "Merge One";
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+border: #FA9600;
+}
+.checkout-button:focus{
+ outline: none;
+}

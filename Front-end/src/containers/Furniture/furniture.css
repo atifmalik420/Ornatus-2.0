@@ -1,0 +1,57 @@
+.furniture-main {
+  display: inline-flex;
+  padding: 61px 154px 62px 155px;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+.furniture-sub {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 46px;
+}
+.furniture-upper {
+  display: flex;
+  align-items: flex-start;
+  gap: 52px;
+}
+.upper-text-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 34px;
+}
+.furniture-lower {
+  display: flex;
+  align-items: flex-start;
+  gap: 65px;
+}
+.lower-text-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 34px;
+}
+.furniture-main-text {
+  color: #76726b;
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: #76726b;
+  font: "Merge One";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 1.8px;
+  width: 502px;
+}
+.furniture-sub-text {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.2px;
+  width: 558px;
+}

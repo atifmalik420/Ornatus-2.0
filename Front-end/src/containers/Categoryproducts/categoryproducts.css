@@ -1,0 +1,118 @@
+.category-main {
+  display: inline-flex;
+  padding: 44px 57px 44.045px 57px;
+  justify-content: center;
+  align-items: center;
+}
+.category-subdiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  width: 100%;
+}
+.breadcrumb-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+}
+.breadcrumb-item {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.breadcrumb-item:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+.filter-sorting-div {
+  display: flex;
+  align-items: flex-start;
+  gap: 770px;
+  margin-bottom: 30px;
+}
+.filters-div {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.filter-dropdown {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: white;
+  border: none;
+}
+.filter-dropdown:hover {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: white;
+  border: none;
+}
+.filter-dropdown {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: white;
+  border: none;
+}
+.filter-label {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.products-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 55px;
+}
+.product-card {
+  display: flex;
+  width: 255px;
+  height: 266px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.product-img {
+  width: 249.19px;
+  height: 189.47px;
+}
+.product-name {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.product-price {
+  color: #d27e00;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+}

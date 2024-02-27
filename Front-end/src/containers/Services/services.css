@@ -1,0 +1,44 @@
+.services-main{
+    width: 100%;
+height: 270px;
+background: #FFA102;
+padding: 20px;
+gap: 50px;
+display: flex;
+align-items: center;
+}
+.service-div{
+    display: inline-flex;
+flex-direction: column;
+align-items: center;
+gap: 15px;
+
+}
+.service-icon{
+    width: 80px;
+height: 80px;
+color: white;
+}
+.service-title{
+    color: #FFF;
+    -webkit-text-stroke-width: 1;
+    -webkit-text-stroke-color: #FFF;
+    font: "Merge One";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.4px;
+}
+.service-text{
+    width: 327.186px;
+    height: 60px;
+    color: #FFF;
+font: "Merge One";
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 0.9px;
+text-align: center;
+}

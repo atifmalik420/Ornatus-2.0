@@ -1,0 +1,191 @@
+.checkout-main {
+  width: 1440px;
+  height: 1367px;
+  background: #fff;
+  padding: 80px;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 300px;
+}
+.checkout-info {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 33px;
+}
+.checkout-contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.contact {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.contact-input {
+  width: 500px;
+  height: 70px;
+  stroke-width: 2px;
+  stroke: #d27e00;
+  filter: drop-shadow(0px 4px 5px rgba(250, 150, 0, 0.25));
+  border: 2px solid #d27e00;
+}
+.contact-input:focus {
+  outline: none;
+}
+.contact-label {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.contact-checkbox {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #76726b;
+}
+.checkout-delivery-info {
+  display: flex;
+  width: 528px;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 21px 28px;
+  flex-wrap: wrap;
+}
+.delivery {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.delivery-address-info {
+  width: 500px;
+  height: 70px;
+  stroke-width: 2px;
+  stroke: #d27e00;
+  filter: drop-shadow(0px 4px 5px rgba(250, 150, 0, 0.25));
+  border: 2px solid #d27e00;
+}
+.checkout-payment-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+}
+.payment {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.payment-label {
+  padding: 6px;
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.checkout-billing-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+}
+.billing-label {
+  padding: 6px;
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.complete-order-btn {
+  display: flex;
+  width: 500px;
+  height: 70px;
+  color: #fff;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: #d27e00;
+  background: #ee940f;
+  box-shadow: 0px 4px 7px 0px #fa9600;
+}
+.checkout-items-bill {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+.checkout-items {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.checkout-item-image {
+  width: 149px;
+  height: 132px;
+}
+.checkout-item-name {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.checkout-items-bill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 23px;
+}
+.checkout-subtotal {
+  display: flex;
+  align-items: flex-start;
+  gap: 223px;
+}
+.checkout-subtotal-title {
+  color: #76726b;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+  width: 120px;
+}
+.checkout-subtotal-amount {
+  color: #d27e00;
+  font: "Merge One";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+}
+.checkout-shipping {
+  display: flex;
+  align-items: flex-start;
+  gap: 223px;
+}
+.checkout-total {
+  display: flex;
+  align-items: flex-start;
+  gap: 223px;
+}
