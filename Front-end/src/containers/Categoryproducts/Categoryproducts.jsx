@@ -1,18 +1,48 @@
 import React from "react";
-//import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./categoryproducts.css";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import prod from "./prod-2.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
+import productService from "../../services/ProductsService";
 //import Card from 'react-bootstrap/Card';
 const Categoryproducts = () => {
-  const product = {
-    photo: prod,
-    category: "Bedroom",
-    name: "Chelsea King Size Wooden Bed",
-    price: "Rs 20,000",
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const getData = () => {
+    productService
+      .getProducts()
+      .then((data) => {
+        if (Array.isArray(data)) {
+          console.log("Data is an Array Already!");
+          setProducts(data);
+          setLoading(false);
+        } else if (typeof data === 'object') {
+          console.log("Data is an Object and is converted!");
+          const productsArray = Object.values(data);
+          setProducts(productsArray);
+          setLoading(false);
+        } else {
+          console.error("Data received is not in expected format:", data);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+      });
+  };
+  useEffect(
+    getData, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
   }
+
+  if (!products || products.length === 0) {
+    return <p>No data available</p>;
+  }
+  console.log(products);
+  console.log(products.entries);
   return (
     <div className="category-main">
       <div className="category-subdiv">
@@ -25,7 +55,7 @@ const Categoryproducts = () => {
               Shop
             </Breadcrumb.Item>
             <Breadcrumb.Item active className="breadcrumb-item">
-              {product.category}
+              {products.category}
             </Breadcrumb.Item>
           </Breadcrumb>
           <hr className="sepration" />
@@ -81,14 +111,15 @@ const Categoryproducts = () => {
           </div>
         </div>
         <div className="products-div">
-        <Link to={'/product'}>
-        <div className="product-card">
-            <img src={product.photo} alt="" className="product-img"/>
-            <h6 className="product-name">{product.name}</h6>
-            <h6 className="product-price">{product.price}</h6>
-
-        </div>
-        </Link>
+        {products.map((product, index) => (
+                <Link to={`/products/${product.id}`} key={[product.id]}>
+                    <div className="product-card">
+                        <img src={prod} alt="" className="product-img" />
+                        <h6 className="product-name">{product.name}</h6>
+                        <h6 className="product-price">{product.price}</h6>
+                    </div>
+                </Link>
+            ))}
         </div>
       </div>
     </div>

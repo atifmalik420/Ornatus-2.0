@@ -1,38 +1,70 @@
-import React, { useState } from "react";
-import { useEffect} from "react";
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+//import axios from 'axios';
 import "./productdetail.css";
 import Prod1 from "./prod-1.png";
 import Prod2 from "./prod-2.png";
-import { LuArrowRightCircle } from "react-icons/lu";
-import { LuArrowLeftCircle } from "react-icons/lu";
-//import { TbZoomScan } from "react-icons/tb";
+import { LuArrowRightCircle, LuArrowLeftCircle } from "react-icons/lu";
 import { VscZoomIn } from "react-icons/vsc";
-import { Link } from "react-router-dom";
-const Productdetail = (props) => {
-  const images1 = [Prod1, Prod2, Prod2];
-  const [data, setData] = useState([]); // Initialize state with an empty array
-  const [loading, setLoading] = useState(true);
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/product');
-      setData(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setLoading(false);
-    }
+import { Link, useParams } from "react-router-dom";
+import productService from "../../services/ProductsService";
+import {Modal,Button} from 'react-bootstrap';
+import qrcode from '../../assets/qrcode.svg';
+const Productdetail = () => {
+  const productId = useParams();
+  
+  console.log(productId);
+  const [showModal, setShowModal] = useState(false);
+  const handleOpenModal = () => {
+    setShowModal(true);
   };
 
-  // useEffect to mimic componentDidMount behavior
-  useEffect(() => {
-    fetchData();
-  }, []); // Empty dependency array means it runs only once on mount
-  
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  const images1 = [Prod1, Prod2, Prod2];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const getData = () => {
+    productService
+      .getSingleProduct(productId['id'])
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+        // if (Array.isArray(data)) {
+        //   console.log("Data is an Array Already!");
+        //   setProducts(data);
+        //   setLoading(false);
+        // } else if (typeof data === 'object') {
+        //   console.log("Data is an Object and is converted!");
+        //   const productsArray = Object.values(data);
+        //   setProducts(productsArray);
+        //   setLoading(false);
+        // } else {
+        //   console.error("Data received is not in expected format:", data);
+        // }
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+      });
+  };
 
-  const productdet = useState({
-    name: data[0].name,
-    id: data[0].id,
+  useEffect(
+  getData,[productId]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!products || products.length === 0) {
+    return <p>No data available</p>;
+  }
+  console.log(products);
+  console.log(products.entries);
+  const productdet = {
+    name: products['name'] || " ",
+    id: products['id'] || " ",
     specifications: [
       "Size: 35.4” W x 83” D x 49” H (Inches)",
       "Material: Mahogany wood/veneer",
@@ -46,14 +78,11 @@ const Productdetail = (props) => {
       "Elegant Design: The solid wood with walnut finish exudes modern elegance with its natural wood grain feel",
       "Striking Appearance: diagonal grooved design embellished with antique golden metallic motifs gives a striking appearance that blends seamlessly with any interior",
     ],
+    description: products['description'] || " ",
+    price: products['price'] || " ",
+  };
 
-    description:
-      data[0].description,
-    price: data[0].price,
-  });
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  //const [isZoomed, setIsZoomed] = useState(false);
+
 
   const handleThumbnailClick = (index) => {
     setSelectedImageIndex(index);
@@ -68,6 +97,7 @@ const Productdetail = (props) => {
       (prevIndex) => (prevIndex - 1 + images1.length) % images1.length
     );
   };
+
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
@@ -77,16 +107,9 @@ const Productdetail = (props) => {
       setQuantity(quantity - 1);
     }
   };
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-  else
+
   return (
     <div className="prod-detail-main">
-      {console.log(data)}
-      {console.log(data[0].price)}
-      {console.log(data[0].name)}
-      {console.log(data[0].description)}
       <div className="prod-images">
         <div className="prod-view">
           <div className="side-images">
@@ -129,7 +152,19 @@ const Productdetail = (props) => {
 
         <div className="prod-buttons">
           <button className="d3-button">View 3D Model</button>
-          <button className="ar-button">View in AR</button>
+          <button className="ar-button" onClick={handleOpenModal}>View in AR</button>
+          <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal Title</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><img src={qrcode} alt="QR Code" /></Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          {/* You can add additional buttons here */}
+        </Modal.Footer>
+      </Modal>
         </div>
       </div>
 
@@ -158,7 +193,7 @@ const Productdetail = (props) => {
             </button>
           </div>
           <Link to={'/cart'}>
-          <button className="add-to-cart-button">Add to Cart</button>
+            <button className="add-to-cart-button">Add to Cart</button>
           </Link>
         </div>
 

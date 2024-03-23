@@ -19,13 +19,14 @@ function App() {
       <Router>
       
         <Routes>
-          <Route path='/' Component={Landingpage}/>
-          <Route path='/cart' Component={Shoppingcart} />
-          <Route path='/login' Component={Loginpage} />
-          <Route path='/register' Component={Signuppage} />
-          <Route path='/product' Component={Productpage}/>
-          <Route path='/category' Component={Categorypage}/>
-          <Route path='/checkout' Component={Checkoutpage} />
+          <Route path='/' exact Component={Landingpage}/>
+          <Route path='/cart' exact Component={Shoppingcart} />
+          <Route path='/login' exact Component={Loginpage} />
+          <Route path='/register' exact Component={Signuppage} />
+          <Route path='/product' exact Component={Productpage}/>
+          <Route path='/products/:id' exact Component={Productpage}/>
+          <Route path='/collections/category' exact Component={Categorypage}/>
+          <Route path='/checkout' exact Component={Checkoutpage} />
         </Routes>
       </Router>
     </div>

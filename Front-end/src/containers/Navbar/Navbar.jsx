@@ -14,7 +14,7 @@ const Navbar = () => {
     <div className="Navbar_main">
       <div className="Navbar_header">
         <div className="Navbar_logo">
-          <a href="/"><img src={logo} alt="logo_ornatus" /></a>
+          <Link to="/"><img src={logo} alt="logo_ornatus" /></Link>
           
         </div>
         <div className="Navbar_searchbar">
@@ -31,34 +31,34 @@ const Navbar = () => {
         <div className="Navbar_icons">
           <div className="Navbar_home">
             {" "}
-            <a href="/"><IoMdHome className="Navbar_home-icon" /></a>
+            <Link to="/"><IoMdHome className="Navbar_home-icon" /></Link>
             
           </div>
           <div className="Navbar_cart">
             {" "}
-            <a href="/cart">
+            <Link to="/cart">
               <FaShoppingCart className="Navbar_cart-icon" />
-            </a>
+            </Link>
           </div>
           <div className="Navbar_profile">
             {" "}
-            <a href="/login"><FaUser className="Navbar_profile-icon" /></a>
+            <Link to="/login"><FaUser className="Navbar_profile-icon" /></Link>
             
           </div>
         </div>
       </div>
       <div className="Navbar_categories">
         <div className="Navbar_category">
-          <a href="/category">
+
           <NavDropdown
             className="Navbar_dropdown"
-            title={<Link to={'/category'}><span className="Navbar_category-Text">Bedroom</span></Link>}
+            title={<Link to={'/collections/category'}><span className="Navbar_category-Text">Bedroom</span></Link>}
             menuVariant="dark"
           >
             <Link to={'/category'}><NavDropdown.Item>Action</NavDropdown.Item></Link>
             <NavDropdown.Item>Another action</NavDropdown.Item>
             <NavDropdown.Item>Something</NavDropdown.Item>
-          </NavDropdown></a>
+          </NavDropdown>
         </div>
         <div className="Navbar_category">
           <NavDropdown
