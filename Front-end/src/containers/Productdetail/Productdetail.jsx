@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-//import axios from 'axios';
+import React, { useState,useEffect } from "react";
 import "./productdetail.css";
 import Prod1 from "./prod-1.png";
 import Prod2 from "./prod-2.png";
-import { LuArrowRightCircle, LuArrowLeftCircle } from "react-icons/lu";
+import { LuArrowRightCircle } from "react-icons/lu";
+import { LuArrowLeftCircle } from "react-icons/lu";
+//import { TbZoomScan } from "react-icons/tb";
 import { VscZoomIn } from "react-icons/vsc";
 import { Link, useParams } from "react-router-dom";
 import productService from "../../services/ProductsService";
@@ -11,19 +12,20 @@ import {Modal,Button} from 'react-bootstrap';
 import qrcode from '../../assets/qrcode.svg';
 const Productdetail = () => {
   const productId = useParams();
-  
   console.log(productId);
   const [showModal, setShowModal] = useState(false);
   const handleOpenModal = () => {
     setShowModal(true);
   };
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  const images1 = [Prod1, Prod2, Prod2];
+  const images = [Prod1, Prod2, Prod2];
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  //const [isZoomed, setIsZoomed] = useState(false);
   const getData = () => {
     productService
       .getSingleProduct(productId['id'])
@@ -47,12 +49,7 @@ const Productdetail = () => {
         console.error("Error fetching products:", err);
       });
   };
-
-  useEffect(
-  getData,[productId]);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  
+  useEffect(getData,[productId]);
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -81,23 +78,22 @@ const Productdetail = () => {
     description: products['description'] || " ",
     price: products['price'] || " ",
   };
-
-
+  
+  
 
   const handleThumbnailClick = (index) => {
     setSelectedImageIndex(index);
   };
 
   const handleNextImage = () => {
-    setSelectedImageIndex((prevIndex) => (prevIndex + 1) % images1.length);
+    setSelectedImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   const handlePrevImage = () => {
     setSelectedImageIndex(
-      (prevIndex) => (prevIndex - 1 + images1.length) % images1.length
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
     );
   };
-
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
@@ -107,13 +103,13 @@ const Productdetail = () => {
       setQuantity(quantity - 1);
     }
   };
-
+  
   return (
     <div className="prod-detail-main">
       <div className="prod-images">
         <div className="prod-view">
           <div className="side-images">
-            {images1.map((image, index) => (
+            {images.map((image, index) => (
               <img
                 key={index}
                 src={image}
@@ -132,8 +128,8 @@ const Productdetail = () => {
             </div>
             <img
               key={selectedImageIndex}
-              src={images1[selectedImageIndex]}
-              alt={`Product ${selectedImageIndex + 1}`}
+              src={images[selectedImageIndex]}
+              alt={`Product Image1 ${selectedImageIndex + 1}`}
               className="main-image"
             />
 
@@ -154,17 +150,17 @@ const Productdetail = () => {
           <button className="d3-button">View 3D Model</button>
           <button className="ar-button" onClick={handleOpenModal}>View in AR</button>
           <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal Title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body><img src={qrcode} alt="QR Code" /></Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          {/* You can add additional buttons here */}
-        </Modal.Footer>
-      </Modal>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal Title</Modal.Title>
+            </Modal.Header>
+            <Modal.Body><img src={qrcode} alt="QR Code" /></Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Close
+              </Button>
+              {/* You can add additional buttons here */}
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
 
@@ -193,7 +189,7 @@ const Productdetail = () => {
             </button>
           </div>
           <Link to={'/cart'}>
-            <button className="add-to-cart-button">Add to Cart</button>
+          <button className="add-to-cart-button">Add to Cart</button>
           </Link>
         </div>
 

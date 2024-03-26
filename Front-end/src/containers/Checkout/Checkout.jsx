@@ -1,12 +1,13 @@
 import React from "react";
+import { useState } from "react";
 import "./checkout.css";
 import prod from "./prod-2.png";
 const Checkout = () => {
-  const product = {
+  const [product, setProduct] = useState({
     photo: prod,
     name: "Chelsea King Size Wooden Bed",
     price: "Rs 20,000",
-  };
+  });
   return (
     <div className="checkout-main">
       <div className="checkout-info">

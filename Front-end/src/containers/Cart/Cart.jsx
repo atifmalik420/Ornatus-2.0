@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './cart.css'
 import table from './stable.png'
 const Cart = () => {
-    const product={
+    const [product, setProduct] = useState({
         photo: table,
         name: 'Chelsea King Size Wooden Bed',
         price: 'Rs 20,000',
-      }
+      });
 
   const [quantity, setQuantity] = useState(1);
 
@@ -80,9 +80,9 @@ const Cart = () => {
                     <h4 className='subtotal'>Subtotal</h4>
                     <h4 className='subtotal'>{product.price}</h4>
                 </div>
-                <a href='/checkout'>
-                    <button className='checkout-button'>Checkout</button>
-                </a>
+
+                <button className='checkout-button'>Checkout</button>
+
 
 
             </div>

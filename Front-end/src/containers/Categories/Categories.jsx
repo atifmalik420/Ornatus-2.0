@@ -17,48 +17,51 @@ const Categories = () => {
          <div className="div-1-2">
 
          <div className="div-1">
-            <Link to={'/category'}>
+         <Link to={'/collections/category'}>
             <div className="bedroom">
-               <div className="category-text">
-               <h5 className="category-title">Bedroom</h5>
-               <h2 className="shop-now">Shop now</h2>
-               </div>
-               <div className="category-bedroom-image">
-               <img src={bedroom} alt=""  className="bedroom-image"/>
-               </div>
+            <div className="category-text">
+            <h5 className="category-title">Bedroom</h5>
+            <h2 className="shop-now">Shop now</h2>
             </div>
-            </Link>
-
+            <div className="category-bedroom-image">
+            <img src={bedroom} alt=""  className="bedroom-image"/>
+            </div>
+            </div>
+         </Link>
             <div className="sofas">
-               <div className="category-text">
-               <h5 className="category-title">Sofas</h5>
-               <h2 className="shop-now">Shop now</h2>
-               </div>
-               <div className="category-sofa-image">
-               <img src={sofa} alt=""  className="sofa-image"/>
-               </div>
+            <div className="category-text">
+            <h5 className="category-title">Sofas</h5>
+            <h2 className="shop-now">Shop now</h2>
+            </div>
+             <div className="category-sofa-image">
+             <img src={sofa} alt=""  className="sofa-image"/>
+             </div>
+
+
             </div>
 
          </div>
 
          <div className="div-2">
             <div className="tables">
-               <div className="category-text">
-               <h5 className="category-title">Tables</h5>
-               <h2 className="shop-now">Shop now</h2>
-               </div>
-               <div className="category-table-image">
-               <img src={table} alt=""  className="table-image"/>
-               </div>
+            <div className="category-text">
+            <h5 className="category-title">Tables</h5>
+            <h2 className="shop-now">Shop now</h2>
+            </div>
+            <div className="category-table-image">
+             <img src={table} alt=""  className="table-image"/>
+             </div>
+                
+
             </div>
 
             <div className="home">
-               <div className="category-text">
-               <h5 className="category-title">Home and Decor</h5>
-               <h2 className="shop-now">Shop now</h2>
-               </div>
-               <div className="category-sofa-image">
-               <img src={home} alt=""  className="sofa-image"/>
+            <div className="category-text">
+            <h5 className="category-title">Home and Decor</h5>
+            <h2 className="shop-now">Shop now</h2>
+            </div>
+            <div className="category-sofa-image">
+             <img src={home} alt=""  className="sofa-image"/>
              </div>
 
             </div>
@@ -68,12 +71,12 @@ const Categories = () => {
          </div>
 
          <div className="chair">
-            <div className="category-text">
-               <h5 className="category-title">Chair</h5>
-               <h2 className="shop-now">Shop now</h2>
-               </div>
-               <div className="category-chair-image">
-               <img src={chair} alt=""  className="chair-image"/>
+         <div className="category-text">
+            <h5 className="category-title">Chair</h5>
+            <h2 className="shop-now">Shop now</h2>
+            </div>
+            <div className="category-chair-image">
+             <img src={chair} alt=""  className="chair-image"/>
              </div>
 
          </div>
