@@ -148,6 +148,9 @@ input::placeholder {
 .Navbar_category:hover{
   border-bottom: 2px solid gray;
 }
+a {
+  text-decoration: none;
+}
 .dropdown-toggle::after {
   display:none !important;
 }

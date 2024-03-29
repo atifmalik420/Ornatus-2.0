@@ -23,11 +23,8 @@ function App() {
           <Route path='/cart' exact Component={Shoppingcart} />
           <Route path='/login' exact Component={Loginpage} />
           <Route path='/register' exact Component={Signuppage} />
-          <Route path='/collections/category' exact Component={Categorypage}/>
-          <Route path='/collections/category/products/:id' exact Component={Productpage}/>
-          <Route path='/product' exact Component={Productpage}/>
-          
-          
+          <Route path='/collections/:category' exact Component={Categorypage}/>
+          <Route path='/collections/:category/products/:id' exact Component={Productpage}/>
           <Route path='/checkout' exact Component={Checkoutpage} />
         </Routes>
       </Router>

@@ -32,18 +32,6 @@ const Productdetail = () => {
       .then((data) => {
         setProducts(data);
         setLoading(false);
-        // if (Array.isArray(data)) {
-        //   console.log("Data is an Array Already!");
-        //   setProducts(data);
-        //   setLoading(false);
-        // } else if (typeof data === 'object') {
-        //   console.log("Data is an Object and is converted!");
-        //   const productsArray = Object.values(data);
-        //   setProducts(productsArray);
-        //   setLoading(false);
-        // } else {
-        //   console.error("Data received is not in expected format:", data);
-        // }
       })
       .catch((err) => {
         console.error("Error fetching products:", err);
