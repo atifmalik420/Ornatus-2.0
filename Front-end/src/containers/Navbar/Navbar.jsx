@@ -68,7 +68,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="Navbar_profile">
-            <Link to={"/login"}>
+            <Link to={"/account/login"}>
               <FaUser className="Navbar_profile-icon" />
             </Link>
           </div>

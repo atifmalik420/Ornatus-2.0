@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const validateProduct = require("../../middlewares/validateProduct");
 const auth = require("../../middlewares/auth");
 const admin = require("../../middlewares/admin");
 const { Pool } = require("pg");
@@ -15,21 +14,28 @@ const pool = new Pool({
 });
 
 // GET all products or products by category
+
 router.get("/", async (req, res) => {
   try {
-    console.log("Query");
-    let category = req.query.category; // Get the category from query parameter
-    let query = 'SELECT * FROM products';
-    console.log("from API products",category)
+    let category = req.query.category;
+    let sortBy = req.query.sortBy || 'name';
+    let sortOrder = req.query.sortOrder || 'asc';
+    let availability = req.query.availability || '';
+    console.log(category,sortBy,sortOrder,availability)
+    let query = `SELECT * FROM products`;
     if (category) {
-      console.log("I am in Category")
-      // If category is provided, add WHERE clause to filter by category
-      query += ` WHERE category = '${category}'`;
+      query += ` WHERE`;
+      if (category) query += ` category = '${category}'`;
+      if (availability) {
+        if (category) query += ` AND`;
+        query += ` stock ${availability === 'In Stock' ? '=' : '>'} 0`;
+      }
     }
 
+    query += ` ORDER BY ${sortBy} ${sortOrder}`;
+console.log(query)
     const client = await pool.connect();
     const result = await client.query(query);
-    console.log(query)
     const products = result.rows;
     client.release();
 
@@ -60,7 +66,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a record
-router.put("/:id", validateProduct, auth, admin, async (req, res) => {
+router.put("/:id", auth, admin, async (req, res) => {
   try {
     const client = await pool.connect();
     await client.query(`UPDATE products SET name = $1, price = $2 WHERE id = $3`, [req.body.name, req.body.price, req.params.id]);
@@ -88,7 +94,7 @@ router.delete("/:id", auth, admin, async (req, res) => {
 });
 
 // Insert a record
-router.post("/", validateProduct, auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const client = await pool.connect();
     await client.query(`INSERT INTO products (name, price) VALUES ($1, $2)`, [req.body.name, req.body.price]);

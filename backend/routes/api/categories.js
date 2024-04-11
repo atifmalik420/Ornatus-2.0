@@ -1,6 +1,5 @@
 const express = require("express");
 let router = express.Router();
-const validateProduct = require("../../middlewares/validateProduct");
 const auth = require("../../middlewares/auth");
 const admin = require("../../middlewares/admin");
 const { Pool } = require("pg");
@@ -51,7 +50,7 @@ router.get("/", async (req, res) => {
 });
 
 // Update a record
-router.put("/:id", validateProduct, auth, admin, async (req, res) => {
+router.put("/:id", auth, admin, async (req, res) => {
   try {
     const client = await pool.connect();
     await client.query(`UPDATE categories SET name = $1, price = $2 WHERE id = $3`, [req.body.name, req.params.id]);
@@ -79,7 +78,7 @@ router.delete("/:id", auth, admin, async (req, res) => {
 });
 
 // Insert a record
-router.post("/", validateProduct, auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const client = await pool.connect();
     await client.query(`INSERT INTO categories (name) VALUES ($1)`, [req.body.name]);
