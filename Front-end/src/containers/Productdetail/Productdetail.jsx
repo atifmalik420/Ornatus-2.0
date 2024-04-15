@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import "./productdetail.css";
-import Prod1 from "./prod-1.png";
+//import Prod1 from "./prod-1.png";
 import Prod2 from "./prod-2.png";
 import { LuArrowRightCircle } from "react-icons/lu";
 import { LuArrowLeftCircle } from "react-icons/lu";
@@ -20,7 +20,8 @@ const Productdetail = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  const images = [Prod1, Prod2, Prod2];
+  
+  
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -38,6 +39,9 @@ const Productdetail = () => {
       });
   };
   useEffect(getData,[productId]);
+  const tasveer = products['image'];
+  console.log(tasveer);
+  const images = [tasveer, Prod2, Prod2];
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -66,7 +70,6 @@ const Productdetail = () => {
     description: products['description'] || " ",
     price: products['price'] || " ",
   };
-  
   
 
   const handleThumbnailClick = (index) => {

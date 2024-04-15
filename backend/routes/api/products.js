@@ -8,7 +8,7 @@ const { Pool } = require("pg");
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost', // Or your PostgreSQL host
-  database: 'Ornatus',
+  database: 'Furniture',
   password: 'lxo8999',
   port: 5432, // Default PostgreSQL port
 });
@@ -21,19 +21,26 @@ router.get("/", async (req, res) => {
     let sortBy = req.query.sortBy || 'name';
     let sortOrder = req.query.sortOrder || 'asc';
     let availability = req.query.availability || '';
-    console.log(category,sortBy,sortOrder,availability)
+    console.log(category, sortBy, sortOrder, availability)
+
     let query = `SELECT * FROM products`;
-    if (category) {
-      query += ` WHERE`;
-      if (category) query += ` category = '${category}'`;
-      if (availability) {
-        if (category) query += ` AND`;
-        query += ` stock ${availability === 'In Stock' ? '=' : '>'} 0`;
+
+    if (category && category.toLowerCase() !== 'all') {
+      query += ` WHERE category = '${category}'`;
+    }
+
+    if (availability) {
+      if (query.includes('WHERE')) {
+        query += ` AND`;
+      } else {
+        query += ` WHERE`;
       }
+      query += ` stock ${availability === 'In Stock' ? '=' : '>'} 0`;
     }
 
     query += ` ORDER BY ${sortBy} ${sortOrder}`;
-console.log(query)
+    console.log(query);
+
     const client = await pool.connect();
     const result = await client.query(query);
     const products = result.rows;
@@ -46,11 +53,12 @@ console.log(query)
   }
 });
 
+
 // GET single product
 router.get("/:id", async (req, res) => {
   try {
     const client = await pool.connect();
-    const result = await client.query(`SELECT * FROM products WHERE id = $1`, [req.params.id]);
+    const result = await client.query(`SELECT * FROM products WHERE timestamp_id = $1`, [req.params.id]);
     const product = result.rows[0];
     client.release();
 

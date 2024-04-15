@@ -71,11 +71,11 @@ console.log(products)
             <Breadcrumb.Item href="/" className="breadcrumb-item">
               Home
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/" className="breadcrumb-item">
+            <Breadcrumb.Item href="/collections/all" className="breadcrumb-item">
               Shop
             </Breadcrumb.Item>
             <Breadcrumb.Item active className="breadcrumb-item">
-              {category}
+            {(category === 'all')? category = 'Products' : category}
             </Breadcrumb.Item>
           </Breadcrumb>
           <hr className="sepration" />
@@ -116,10 +116,10 @@ console.log(products)
         <Row md={4}>
         {products.map((product) => (
           <Col key={product.id}>
-            <Link to={`/collections/${category}/products/${product.id}`}>
+            <Link to={`/collections/${category}/products/${product.timestamp_id}`}>
               
               <div className="product-card">
-                <img src={product.photo} alt="" className="product-img" />
+                <img src={product.image} alt="" className="product-img" />
                 <h6 className="product-name">{product.name}</h6>
                 <h6 className="product-price">{product.price}</h6>
               </div>

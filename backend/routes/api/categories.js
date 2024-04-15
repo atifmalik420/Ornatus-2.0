@@ -8,7 +8,7 @@ const { Pool } = require("pg");
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost', // Or your PostgreSQL host
-  database: 'Ornatus',
+  database: 'Furniture',
   password: 'lxo8999',
   port: 5432, // Default PostgreSQL port
 });
@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET single category
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const client = await pool.connect();
     const result = await client.query(`SELECT * FROM categories WHERE id = $1`, [req.params.id]);
@@ -53,12 +53,12 @@ router.get("/", async (req, res) => {
 router.put("/:id", auth, admin, async (req, res) => {
   try {
     const client = await pool.connect();
-    await client.query(`UPDATE categories SET name = $1, price = $2 WHERE id = $3`, [req.body.name, req.params.id]);
+    await client.query(`UPDATE categories SET category = $1`, [req.body.category]);
     client.release();
     
     return res.send("Category updated successfully");
   } catch (error) {
-    console.error("Error updating product:", error);
+    console.error("Error updating category:", error);
     return res.status(500).send("Internal Server Error");
   }
 });
@@ -86,7 +86,7 @@ router.post("/", auth, async (req, res) => {
 
     return res.send("Category inserted successfully");
   } catch (error) {
-    console.error("Error inserting product:", error);
+    console.error("Error inserting category:", error);
     return res.status(500).send("Internal Server Error");
   }
 });
