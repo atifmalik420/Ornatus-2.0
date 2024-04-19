@@ -6,6 +6,9 @@ import "slick-carousel/slick/slick-theme.css";
 import './interiordiv.css';
 
 const Interiordiv = () => {
+  const handleClick = () => {
+    window.open('https://localhost:10001', '_blank');
+  };
   const cardsData = [
         {
           title: 'Design Your Personalized Interior',
@@ -51,7 +54,7 @@ const Interiordiv = () => {
         </div>
 
         <div className="">
-          <button className='interior-card-button'>{card.buttonText}</button>
+          <button className='interior-card-button' onClick={handleClick}>{card.buttonText}</button>
         </div>
 
         </div>

@@ -12,6 +12,7 @@ const pool = new Pool({
 
 async function auth(req, res, next) {
   let token = req.header("x-auth-token");
+  console.log('Token is ',token);
   if (!token) return res.status(400).send("Token Not Provided");
 
   try {

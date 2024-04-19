@@ -11,7 +11,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const Categoryproducts = ({category}) => {
+const Categoryproducts = ({category,style}) => {
   //const { category } = useParams(); // Get the selected category from URL parameter
   console.log("From the Category Products",category);
   // const [appliedFilter, setAppliedFilter] = useState("All");
@@ -40,7 +40,8 @@ const Categoryproducts = ({category}) => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   useEffect(() => {
-    productService
+    if(style == null){
+      productService
       .getProductsByCategory(category, sortOption.sortBy, sortOption.sortOrder, availabilityFilter)
       .then((data) => {
         setProducts(data);
@@ -50,7 +51,20 @@ const Categoryproducts = ({category}) => {
         console.error("Error fetching products:", error);
         setLoading(false);
       });
-  }, [category, sortOption, availabilityFilter]);
+    }
+    else{
+      productService
+      .getProductsByStyle(style, sortOption.sortBy, sortOption.sortOrder, availabilityFilter)
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      });
+    }
+  }, [category,style, sortOption, availabilityFilter]);
 console.log("From the category Products",category,sortOption,availabilityFilter);
 console.log(products)
   if (loading) {

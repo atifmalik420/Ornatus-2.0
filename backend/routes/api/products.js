@@ -17,31 +17,65 @@ const pool = new Pool({
 
 router.get("/", async (req, res) => {
   try {
-    let category = req.query.category;
+    const client = await pool.connect();
+    let categoryName = req.query.category;
     let sortBy = req.query.sortBy || 'name';
     let sortOrder = req.query.sortOrder || 'asc';
     let availability = req.query.availability || '';
-    console.log(category, sortBy, sortOrder, availability)
+    console.log(categoryName, sortBy, sortOrder, availability);
 
+    // Construct the base query
     let query = `SELECT * FROM products`;
 
-    if (category && category.toLowerCase() !== 'all') {
-      query += ` WHERE category = '${category}'`;
+    // Check if a category name is provided
+    if (categoryName && categoryName.toLowerCase() !== 'all') {
+      // Fetch category_id based on category name
+      let categoryIdQuery = `SELECT timestamp_id FROM categories WHERE categories = $1`;
+      let categoryIdParams = [categoryName];
+
+      const categoryIdResult = await client.query(categoryIdQuery, categoryIdParams);
+      const categoryId = categoryIdResult.rows.length > 0 ? categoryIdResult.rows[0].timestamp_id : null;
+      console.log("Category ID:", categoryId);
+
+      if (categoryId) {
+        query += ` WHERE category_id = '${categoryId}'`;
+      } else {
+        // If category not found, check if it exists in the styles table
+        let styleIdQuery = `SELECT timestamp_id FROM styles WHERE style = $1`;
+        let styleIdParams = [categoryName];
+
+        const styleIdResult = await client.query(styleIdQuery, styleIdParams);
+        const styleId = styleIdResult.rows.length > 0 ? styleIdResult.rows[0].timestamp_id : null;
+        console.log("Style ID:", styleId);
+
+        if (styleId) {
+          query += ` WHERE style_id = '${styleId}'`;
+        } else {
+          // If category and style not found, fetch all products
+          categoryName = 'all';
+        }
+      }
     }
 
-    if (availability) {
+    // Check if availability filter is provided
+    if (availability && availability.toLowerCase() !== 'all') {
+      // Add availability filter to the query
       if (query.includes('WHERE')) {
         query += ` AND`;
       } else {
         query += ` WHERE`;
       }
-      query += ` stock ${availability === 'In Stock' ? '=' : '>'} 0`;
+      if (availability === 'In Stock') {
+        query += ` stock > 0`;
+      } else if (availability === 'Out of Stock') {
+        query += ` stock <= 0`;
+      }
     }
 
+    // Add sorting to the query
     query += ` ORDER BY ${sortBy} ${sortOrder}`;
-    console.log(query);
+    console.log("Final Query:", query);
 
-    const client = await pool.connect();
     const result = await client.query(query);
     const products = result.rows;
     client.release();
@@ -53,6 +87,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Search products
+router.get("/search", async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const searchTerm = req.query.searchTerm;
+    const query = `SELECT * FROM products WHERE name LIKE '%${searchTerm}%'`;
+    console.log("Search Query:", query);
+
+    const result = await client.query(query);
+    const products = result.rows;
+    client.release();
+
+    return res.send(products);
+  } catch (error) {
+    console.error("Error searching products:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
 
 // GET single product
 router.get("/:id", async (req, res) => {

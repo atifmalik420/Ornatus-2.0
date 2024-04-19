@@ -9,8 +9,15 @@ class ProductsService extends GenericService {
     const params = { category, sortBy, sortOrder, availability };
     console.log("From the API of Products",params);
     return this.get(`products?category=${category}&sortBy=${sortBy}&sortOrder=${sortOrder}&availability=${availability}`, { params });
-};
-
+  };
+  getProductsByStyle = (style, sortBy, sortOrder, availability) => {
+    const params = { style, sortBy, sortOrder, availability };
+    console.log("From the API of Products",params);
+    return this.get(`products?style=${style}&sortBy=${sortBy}&sortOrder=${sortOrder}&availability=${availability}`, { params });
+  };
+  searchProducts = (searchTerm) => {
+    return this.get(`products/search?searchTerm=${searchTerm}`);
+  };
   getSingleProduct = (id) => this.get("products/" + id);
 }
 

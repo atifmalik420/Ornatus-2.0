@@ -6,11 +6,16 @@ import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import categoryService from "../../services/CategoryService";
+import userService from "../../services/UserService"; 
+import productService from "../../services/ProductsService";
 import "./navbar.css";
 
 const Navbar = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     categoryService.getCategories().then((data) => {
@@ -29,14 +34,29 @@ const Navbar = () => {
     });
   }, []);
 
+  const handleSearch = async () => {
+    try {
+      const response = await productService.searchProducts(searchTerm);
+      console.log("Search results:", response.data);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
+  };
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    
+  };
+
+  const handleSuggestionClick = (value) => {
+    setSearchTerm(value);
+    setSuggestions([]);
+  };
   if (loading) {
     return <p>Loading...</p>;
   }
-
-  if (!categories || categories.length === 0) {
-    return <p>No data available</p>;
-  }
-
   return (
     <div className="Navbar_main">
       <div className="Navbar_header">
@@ -46,15 +66,26 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="Navbar_searchbar">
-          <form role="search">
+          <form onSubmit={handleSearch} role="search">
             <input
               id="searchInput"
               className="Navbar_search-input"
               type="search"
               placeholder="Search"
+              value={searchTerm}
+              onChange={onChange}
             />
             <IoIosSearch type="submit" className="Navbar_search-icon" />
           </form>
+          {suggestions.length > 0 && (
+            <ul className="suggestions">
+              {suggestions.map((suggestion, index) => (
+                <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div className="Navbar_icons">
           <div className="Navbar_home">
@@ -68,9 +99,11 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="Navbar_profile">
-            <Link to={"/account/login"}>
+          {userService.isLoggedIn() ? (<Link to={"/account"}>
               <FaUser className="Navbar_profile-icon" />
-            </Link>
+            </Link>):(<Link to={"/account/login"}>
+              <FaUser className="Navbar_profile-icon" />
+            </Link>)}
           </div>
         </div>
       </div>
@@ -83,6 +116,16 @@ const Navbar = () => {
           </div>
         ))}
       </div>
+      {searchResults.length > 0 && (
+        <div className="Navbar_search-results">
+          <h3>Search Results</h3>
+          <ul>
+            {searchResults.map((product) => (
+              <li key={product.id}>{product.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

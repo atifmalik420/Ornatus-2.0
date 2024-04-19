@@ -16,6 +16,8 @@ import farm from './farmhouse.jpeg';
 import victorian from './victorian.jpeg';
 import traditional from './traditional.jpg';
 import transitional from './transitional.jpeg';
+//import productService from "../../services/ProductsService";
+import { Link } from "react-router-dom";
 const Styleslider = () => {
   // Sample card data, replace it with your actual data
   const cardsData = [
@@ -53,10 +55,12 @@ const Styleslider = () => {
       <Slider {...sliderSettings}>
         {cardsData.map((card, index) => (
           <div key={index} className="style-card">
+          <Link to={`/collections/${card.title}`}>
             <img src={card.imageUrl} alt={card.title} className="style-card-image"/>
             <div className="style-card-title">
               <h3>{card.title}</h3>
             </div>
+            </Link>
           </div>
         ))}
       </Slider>

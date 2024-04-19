@@ -1,35 +1,32 @@
 import React, { useState,useEffect } from "react";
 import "./productdetail.css";
 //import Prod1 from "./prod-1.png";
-import Prod2 from "./prod-2.png";
+//import Prod2 from "./prod-2.png";
 import { LuArrowRightCircle } from "react-icons/lu";
 import { LuArrowLeftCircle } from "react-icons/lu";
 //import { TbZoomScan } from "react-icons/tb";
 import { VscZoomIn } from "react-icons/vsc";
 import { Link, useParams } from "react-router-dom";
 import productService from "../../services/ProductsService";
+import userService from "../../services/UserService";
+import reviewService from "../../services/ReviewService";
 import {Modal,Button} from 'react-bootstrap';
 import qrcode from '../../assets/qrcode.svg';
 const Productdetail = () => {
   const productId = useParams();
-  console.log(productId);
   const [showModal, setShowModal] = useState(false);
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-  
-  
   const [products, setProducts] = useState([]);
+  const [reviews, setReviews] = useState(['']);
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  //const [isZoomed, setIsZoomed] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [reviewTitle, setReviewTitle] = useState("");
+  const [reviewBody, setReviewBody] = useState("");
   const getData = () => {
+  
     productService
-      .getSingleProduct(productId['id'])
+      .getSingleProduct(productId["id"])
       .then((data) => {
         setProducts(data);
         setLoading(false);
@@ -37,11 +34,34 @@ const Productdetail = () => {
       .catch((err) => {
         console.error("Error fetching products:", err);
       });
+
+    reviewService
+      .getReviewByProduct(productId["id"])
+      .then((data) => {
+        setReviews(data);
+        console.log("Added reviews for this product are: ",data);
+      })
+      .catch((err) => {
+        console.error("Error fetching reviews:", err);
+      });
   };
-  useEffect(getData,[productId]);
+
+  useEffect(getData, [productId]);
   const tasveer = products['image'];
   console.log(tasveer);
-  const images = [tasveer, Prod2, Prod2];
+  const images = [tasveer];
+  // const reviewList = reviews.map((review) => (
+  //   <div key={review._id} className="review">
+  //     <h4>{review.title}</h4>
+  //     <p>{review.body}</p>
+  //   </div>
+  // ));
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -53,7 +73,7 @@ const Productdetail = () => {
   console.log(products.entries);
   const productdet = {
     name: products['name'] || " ",
-    id: products['id'] || " ",
+    id: products['timestamp_id'] || " ",
     specifications: [
       "Size: 35.4” W x 83” D x 49” H (Inches)",
       "Material: Mahogany wood/veneer",
@@ -94,7 +114,30 @@ const Productdetail = () => {
       setQuantity(quantity - 1);
     }
   };
-  
+  const submitReview = () => {
+    if (userService.isLoggedIn()) {
+      const user_id = userService.getLoggedInUser().id;
+      console.log("The value of id of user is ",user_id);
+      console.log("Values in the review are ",productId['id'],user_id,rating,reviewTitle,reviewBody);
+      reviewService
+        .addReview({
+          product_id: productId["id"],
+          user_id: user_id,
+          rating: rating,
+          title: reviewTitle,
+          review: reviewBody,
+        })
+        .then((response) => {
+          getData();
+          setRating(0);
+          setReviewTitle("");
+          setReviewBody("");
+        })
+        .catch((error) => {
+          console.error("Error posting review:", error);
+        });
+    }
+  };
   return (
     <div className="prod-detail-main">
       <div className="prod-images">
@@ -142,14 +185,15 @@ const Productdetail = () => {
           <button className="ar-button" onClick={handleOpenModal}>View in AR</button>
           <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal Title</Modal.Title>
+              <Modal.Title>{productdet.name}</Modal.Title>
             </Modal.Header>
-            <Modal.Body><img src={qrcode} alt="QR Code" /></Modal.Body>
+            <Modal.Body>
+            <h5>Scan QR code with the camera of your phone to View in AR</h5>
+            <img src={qrcode} alt="QR Code" /></Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseModal}>
                 Close
               </Button>
-              {/* You can add additional buttons here */}
             </Modal.Footer>
           </Modal>
         </div>
@@ -212,47 +256,78 @@ const Productdetail = () => {
         </div>
 
         <hr className="sepration" />
-
         <div className="prod-reviews-div">
+
+
           <h1 className="reviews-heading">
             <b>Customer Reviews</b>
           </h1>
 
+          <div className="user-review-div">
+             <div >
+              <ol>
+              {reviews.map((review) => (<li className="review-display">
+                <h6 > <b>{review.title}</b></h6>
+                <h6 >{review.review}</h6>
+              </li>))}
+              </ol>
+            
+             </div>
+    
+          </div>
+          <b className="reviews-heading">Submit Review</b>
+          {/* Display Rating Stars */}
           <div className="ratings-div">
             <h2 className="rating">Rating</h2>
-
             <div className="star-rating">
-              <input type="radio" id="star5" name="rating" value="5" />
-              <label htmlFor="star5" title="5 stars"></label>
-
-              <input type="radio" id="star4" name="rating" value="4" />
-              <label htmlFor="star4" title="4 stars"></label>
-
-              <input type="radio" id="star3" name="rating" value="3" />
-              <label htmlFor="star3" title="3 stars"></label>
-
-              <input type="radio" id="star2" name="rating" value="2" />
-              <label htmlFor="star2" title="2 stars"></label>
-
-              <input type="radio" id="star1" name="rating" value="1" />
-              <label htmlFor="star1" title="1 star"></label>
+              {[1, 2, 3, 4, 5].map((value) => (
+                <React.Fragment key={value}>
+                  <input
+                    type="radio"
+                    id={`star${value}`}
+                    name="rating"
+                    value={value}
+                    checked={rating === value}
+                    onChange={() => setRating(value)}
+                  />
+                  <label htmlFor={`star${value}`} title={`${value} stars`}></label>
+                </React.Fragment>
+              ))}
             </div>
           </div>
 
+          {/* Review Title */}
           <div className="review-title-div">
             <h4 className="review-title">Review Title</h4>
             <input
               type="text"
               className="review-title-input"
               placeholder="Title"
+              value={reviewTitle}
+              onChange={(e) => setReviewTitle(e.target.value)}
             />
           </div>
 
+          {/* Review Body */}
           <div className="review-body-div">
             <h4 className="body-of-review">Body of review</h4>
-            <textarea type="text" className="body-of-review-input" />
+            <textarea
+              type="text"
+              className="body-of-review-input"
+              value={reviewBody}
+              onChange={(e) => setReviewBody(e.target.value)}
+            />
           </div>
-          <button className="submit-review-button">Submit Review</button>
+
+          {/* Submit Review Button (enable/disable based on user login status) */}
+            <button
+              className="submit-review-button"
+              onClick={submitReview}
+              disabled={!userService.isLoggedIn()}
+            >
+              Submit Review
+            </button>
+          
         </div>
       </div>
     </div>

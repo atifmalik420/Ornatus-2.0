@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './cart.css'
 import table from './stable.png'
+import { Link } from 'react-router-dom';
 const Cart = () => {
     const [product, setProduct] = useState({
         photo: table,
@@ -61,9 +62,9 @@ const Cart = () => {
 
                 </div>
                 <br />
-
-                <h2 className="cont-shop">Continue Shopping</h2>
-
+                <Link to={'/collections/all'}>
+                    <h2 className="cont-shop">Continue Shopping</h2>
+                </Link>
             </div>
 
             <div className="cart-order-summary">
@@ -80,9 +81,9 @@ const Cart = () => {
                     <h4 className='subtotal'>Subtotal</h4>
                     <h4 className='subtotal'>{product.price}</h4>
                 </div>
-
-                <button className='checkout-button'>Checkout</button>
-
+                <Link to={'/checkout'}>
+                    <button className='checkout-button'>Checkout</button>
+                </Link>
 
 
             </div>
