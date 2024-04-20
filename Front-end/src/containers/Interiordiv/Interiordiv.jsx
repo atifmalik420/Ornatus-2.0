@@ -7,7 +7,7 @@ import './interiordiv.css';
 
 const Interiordiv = () => {
   const handleClick = () => {
-    window.open('https://localhost:10001', '_blank');
+    window.open('http://localhost:10001', '_blank');
   };
   const cardsData = [
         {
@@ -41,12 +41,12 @@ const Interiordiv = () => {
         <Slider {...sliderSettings}>
   {cardsData.map((card, index) => (
     <div key={index} className="interior-card">
-      
+
       <div className="interior-card-content">
         <div className="interior-cardtitle">
           <h3 className='interior-card-title'>{card.title}</h3>
         </div>
-        
+
         <div className='detail-button'>
 
         <div className="interior-card-detail">
