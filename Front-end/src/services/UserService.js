@@ -1,5 +1,5 @@
 import GenericService from "../services/GenericServices";
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 class UserService extends GenericService {
   
   login = (email, password) =>

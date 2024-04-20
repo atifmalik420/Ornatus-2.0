@@ -30,9 +30,6 @@
   align-items: center;
 }
 
-.Navbar_searchbar {
-}
-
 .Navbar_search-input {
   width: 450px;
   height: 60px;
@@ -153,4 +150,8 @@ a {
 }
 .dropdown-toggle::after {
   display:none !important;
+}
+.search-bar-container {
+  max-width: 500px;
+  margin: auto;
 }

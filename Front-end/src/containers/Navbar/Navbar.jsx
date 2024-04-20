@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo_ornatus.png";
-import { IoIosSearch } from "react-icons/io";
 import { IoMdHome } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa6";
@@ -9,14 +8,13 @@ import categoryService from "../../services/CategoryService";
 import userService from "../../services/UserService"; 
 import productService from "../../services/ProductsService";
 import "./navbar.css";
-
+import { debounce } from 'lodash';
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 const Navbar = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  //const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-
   useEffect(() => {
     categoryService.getCategories().then((data) => {
       if (Array.isArray(data)) {
@@ -34,31 +32,51 @@ const Navbar = () => {
     });
   }, []);
 
-  const handleSearch = async () => {
-    try {
-      const response = await productService.searchProducts(searchTerm);
-      console.log("Search results:", response.data);
-      setSearchResults(response.data);
-    } catch (error) {
-      console.error("Error searching products:", error);
-    }
+  const fetchSuggestions = (searchTerm) => {
+    productService
+    .searchProducts(searchTerm)
+      .then((data) => {
+        setSuggestions(data);
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+      });
+  }
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+  const handleOnSearch = (string, results) => {
+    debouncedFetchSuggestions(string);
+  };
+  const handleOnSelect = (item) => {
+    console.log('Selected:', item);
+    window.location.href = `/collections/Products/products/${item.timestamp_id}`;
   };
 
-  const onChange = (event) => {
-    const value = event.target.value;
-    setSearchTerm(value);
-    
+  const handleOnHover = (item) => {
+    console.log('Hovered:', item);
   };
 
-  const handleSuggestionClick = (value) => {
-    setSearchTerm(value);
+  const handleOnFocus = () => {
+    console.log('The search input is focused');
+  };
+
+  const handleOnClear = () => {
+    console.log('The search input is cleared');
     setSuggestions([]);
   };
+
+  const formatResult = (item) => {
+    return (
+      <Link to={`/collections/Products/products/${item.timestamp_id}`}>
+        <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
+      </Link>
+    )
+  }
   if (loading) {
     return <p>Loading...</p>;
   }
   return (
     <div className="Navbar_main">
+    
       <div className="Navbar_header">
         <div className="Navbar_logo">
           <Link to={"/"}>
@@ -66,26 +84,17 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="Navbar_searchbar">
-          <form onSubmit={handleSearch} role="search">
-            <input
-              id="searchInput"
-              className="Navbar_search-input"
-              type="search"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={onChange}
+        <div style={{ width: 400 }}>
+            <ReactSearchAutocomplete
+              items={suggestions}
+              onSearch={handleOnSearch}
+              onSelect={handleOnSelect}
+              onHover={handleOnHover}
+              onFocus={handleOnFocus}
+              onClear={handleOnClear}
+              formatResult={formatResult}
             />
-            <IoIosSearch type="submit" className="Navbar_search-icon" />
-          </form>
-          {suggestions.length > 0 && (
-            <ul className="suggestions">
-              {suggestions.map((suggestion, index) => (
-                <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          )}
+          </div>
         </div>
         <div className="Navbar_icons">
           <div className="Navbar_home">
@@ -116,16 +125,6 @@ const Navbar = () => {
           </div>
         ))}
       </div>
-      {searchResults.length > 0 && (
-        <div className="Navbar_search-results">
-          <h3>Search Results</h3>
-          <ul>
-            {searchResults.map((product) => (
-              <li key={product.id}>{product.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 };

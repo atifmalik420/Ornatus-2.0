@@ -19,6 +19,7 @@ class ProductsService extends GenericService {
     return this.get(`products/search?searchTerm=${searchTerm}`);
   };
   getSingleProduct = (id) => this.get("products/" + id);
+  getProductByName = (name) => this.get("products/" + name);
 }
 
 let productService = new ProductsService();

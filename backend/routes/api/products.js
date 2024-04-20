@@ -124,7 +124,24 @@ router.get("/:id", async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 });
+// GET single product By Name
+router.get("/:id", async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query(`SELECT * FROM products WHERE name = $1`, [req.params.name]);
+    const product = result.rows[0];
+    client.release();
 
+    if (!product) {
+      return res.status(400).send("Product with given Name is not present"); // When id is not present in db
+    }
+
+    return res.send(product); // Everything is ok
+  } catch (error) {
+    console.error("Error retrieving product:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
 // Update a record
 router.put("/:id", auth, admin, async (req, res) => {
   try {
