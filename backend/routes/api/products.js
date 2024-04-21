@@ -171,7 +171,7 @@ router.delete("/:id", auth, admin, async (req, res) => {
 });
 
 // Insert a record
-router.post("/", auth, async (req, res) => {
+router.post("/", auth, admin, async (req, res) => {
   try {
     const client = await pool.connect();
     await client.query(`INSERT INTO products(
