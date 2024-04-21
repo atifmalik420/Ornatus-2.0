@@ -2,23 +2,53 @@ import React, { useState } from "react";
 import './loginform.css';
 import { FcGoogle } from "react-icons/fc";
 import userService from "../../services/UserService"; 
+
 const Loginform = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const [error, setError] = useState("");
+
+    const validateEmail = () => {
+        if (!email.trim()) {
+            setEmailError("Please enter your email address.");
+            return false;
+        }
+        return true;
+    };
+
+    const validatePassword = () => {
+        if (!password.trim()) {
+            setPasswordError("Please enter your password.");
+            return false;
+        }
+        
+        return true;
+    };
 
     const handleLogin = (e) => {
         e.preventDefault();
-        
-        userService.login(email, password)
-            .then(token => {
-                console.log("Login successful", token);
-                window.location.href = '/';
-            })
-            .catch(err => {
-                setError("Invalid email or password"); // Set error message if login fails
-                console.error("Login failed", err);
-            });
+
+        setEmailError("");
+        setPasswordError("");
+        setError("");
+
+        const isEmailValid = validateEmail();
+        const isPasswordValid = validatePassword();
+
+        if (isEmailValid && isPasswordValid) {
+            userService.login(email, password)
+                .then(token => {
+                    console.log("Login successful", token);
+                    window.alert("Logged In Successfully")
+                    window.location.href = '/';
+                })
+                .catch(err => {
+                    setError("Invalid email or password"); 
+                    console.error("Login failed", err);
+                });
+        }
     };
 
     return (
@@ -34,17 +64,19 @@ const Loginform = () => {
                         <input 
                             type="text" 
                             placeholder="Email Address" 
-                            className="input-field" 
+                            className={`input-field ${emailError && 'error'}`} 
                             value={email} 
                             onChange={(e) => setEmail(e.target.value)} 
                         />
+                        {emailError && <div className="error-message">{emailError}</div>}
                         <input 
                             type="password"  
                             placeholder="Password" 
-                            className="input-field" 
+                            className={`input-field ${passwordError && 'error'}`} 
                             value={password} 
                             onChange={(e) => setPassword(e.target.value)} 
                         />
+                        {passwordError && <div className="error-message">{passwordError}</div>}
                         <button type="submit" className="login-button">Login</button>
                     </form>
                     {error && <div className="error-message">{error}</div>}

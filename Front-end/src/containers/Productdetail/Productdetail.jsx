@@ -6,14 +6,17 @@ import { LuArrowRightCircle } from "react-icons/lu";
 import { LuArrowLeftCircle } from "react-icons/lu";
 //import { TbZoomScan } from "react-icons/tb";
 import { VscZoomIn } from "react-icons/vsc";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import productService from "../../services/ProductsService";
 import userService from "../../services/UserService";
 import reviewService from "../../services/ReviewService";
 import {Modal,Button} from 'react-bootstrap';
 import qrcode from '../../assets/qrcode.svg';
+import { useDispatch } from 'react-redux';
+import {addToCart} from '../../redux/cartSlice';
 const Productdetail = () => {
   const productId = useParams();
+  const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false);
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState(['']);
@@ -23,6 +26,15 @@ const Productdetail = () => {
   const [rating, setRating] = useState(0);
   const [reviewTitle, setReviewTitle] = useState("");
   const [reviewBody, setReviewBody] = useState("");
+  var id = products.id;
+  var title = products.name;
+  var image = products.image;
+  var price = 0;
+  const priceWithCurrency = products.price !== undefined ? products.price : ''; 
+  const priceWithoutCurrencyAndCommas = priceWithCurrency.replace(/[$,]/g, "");
+  price = parseInt(priceWithoutCurrencyAndCommas, 10);
+  console.log(price); 
+
   const getData = () => {
   
     productService
@@ -50,12 +62,7 @@ const Productdetail = () => {
   const tasveer = products['image'];
   console.log(tasveer);
   const images = [tasveer];
-  // const reviewList = reviews.map((review) => (
-  //   <div key={review._id} className="review">
-  //     <h4>{review.title}</h4>
-  //     <p>{review.body}</p>
-  //   </div>
-  // ));
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -223,9 +230,16 @@ const Productdetail = () => {
               +
             </button>
           </div>
-          <Link to={'/cart'}>
-          <button className="add-to-cart-button">Add to Cart</button>
-          </Link>
+          
+          <button className="add-to-cart-button"
+          
+          onClick={() => 
+          dispatch(addToCart({
+            id, title, image, price
+          }))
+          }
+          >Add to Cart</button>
+          
         </div>
 
         <p className="delivery-para">

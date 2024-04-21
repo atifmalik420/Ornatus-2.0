@@ -10,6 +10,8 @@ import productService from "../../services/ProductsService";
 import "./navbar.css";
 import { debounce } from 'lodash';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+//import {useNavigate} from 'react-router-dom'
+import { useSelector } from 'react-redux';
 const Navbar = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -71,6 +73,17 @@ const Navbar = () => {
       </Link>
     )
   }
+  //Code for the implementation of cart
+  //const navigate = useNavigate()
+  const cart = useSelector((state) => state.cart)
+
+  const getTotalQuantity = () => {
+    let total = 0
+    cart.forEach(item => {
+      total += item.quantity
+    })
+    return total
+  }
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -103,8 +116,12 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="Navbar_cart">
+            {/* <Link to={"/cart"}>
+              <FaShoppingCart className="Navbar_cart-icon" />
+            </Link> */}
             <Link to={"/cart"}>
               <FaShoppingCart className="Navbar_cart-icon" />
+              <p>{getTotalQuantity() || 0}</p>
             </Link>
           </div>
           <div className="Navbar_profile">
