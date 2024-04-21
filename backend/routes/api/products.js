@@ -174,7 +174,9 @@ router.delete("/:id", auth, admin, async (req, res) => {
 router.post("/", auth, async (req, res) => {
   try {
     const client = await pool.connect();
-    await client.query(`INSERT INTO products (name, price) VALUES ($1, $2)`, [req.body.name, req.body.price]);
+    await client.query(`INSERT INTO products(
+      name, category_id, style_id, price, description, stock, image)
+      VALUES ($1, $2 , $3 , $4 , $5, $6, $7)`, [req.body.name, req.body.category_id, req.body.style_id, req.body.price, req.body.description, req.body.stock, req.body.image]);
     client.release();
 
     return res.send("Product inserted successfully");
