@@ -21,7 +21,7 @@ async function auth(req, res, next) {
     const user = result.rows[0];
     client.release();
 
-    if (!user) return res.status(401).send("Invalid Token");
+    // if (!user) return res.status(401).send("Invalid Token");
 
     req.user = user; // Assuming user information is stored in req.user
     next();
