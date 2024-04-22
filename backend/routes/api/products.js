@@ -77,7 +77,10 @@ router.get("/", async (req, res) => {
     console.log("Final Query:", query);
 
     const result = await client.query(query);
-    const products = result.rows;
+    const products = {
+      data: result.rows,
+      total: result.rows.length
+    };
     client.release();
 
     return res.send(products);
@@ -102,6 +105,26 @@ router.get("/search", async (req, res) => {
     return res.send(products);
   } catch (error) {
     console.error("Error searching products:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+
+router.get("/get-by-id/:id", async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query(`SELECT * FROM products WHERE id = $1`, [req.params.id]);
+    const product = result.rows[0];
+    client.release();
+
+    if (!product) {
+      return res.status(400).send("Product with given ID is not present"); // When id is not present in db
+    }
+    return res.send({
+      data: product
+    }); // Everything is ok
+  } catch (error) {
+    console.error("Error retrieving product:", error);
     return res.status(500).send("Internal Server Error");
   }
 });
@@ -148,7 +171,7 @@ router.put("/:id", auth, admin, async (req, res) => {
     const client = await pool.connect();
     await client.query(`UPDATE products SET name = $1, price = $2 WHERE id = $3`, [req.body.name, req.body.price, req.params.id]);
     client.release();
-    
+
     return res.send("Product updated successfully");
   } catch (error) {
     console.error("Error updating product:", error);
@@ -174,12 +197,20 @@ router.delete("/:id", auth, admin, async (req, res) => {
 router.post("/", auth, admin, async (req, res) => {
   try {
     const client = await pool.connect();
+    const body = req.body.data
+    console.log(body)
     await client.query(`INSERT INTO products(
-      name, category_id, style_id, price, description, stock, image)
-      VALUES ($1, $2 , $3 , $4 , $5, $6, $7)`, [req.body.name, req.body.category_id, req.body.style_id, req.body.price, req.body.description, req.body.stock, req.body.image]);
+      name, category_id, style_id, price, description, stock)
+      VALUES ($1, $2 , $3 , $4 , $5, $6)`, [body.name, body.category, body.style, body.price, body.description, body.stock]);
     client.release();
 
-    return res.send("Product inserted successfully");
+    // sending some dummy data in response, because react-admin expects response in this format
+    return res.send({
+      data: {
+        id: 123,
+        name: "product"
+      }
+    });
   } catch (error) {
     console.error("Error inserting product:", error);
     return res.status(500).send("Internal Server Error");

@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert new user into the database
-    await client.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)', [name, email, hashedPassword]);
+    await client.query('INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4)', [name, email, hashedPassword, "admin"]);
 
     //Generate JWT token
     const token = jwt.sign({ name, email }, config.get("jwtPrivateKey"));
@@ -73,9 +73,11 @@ router.post("/login", async (req, res) => {
     };
     const token = jwt.sign(tokenPayload, config.get("jwtPrivateKey"));
     console.log("Generated token is ", token);
-
     // Return token
-    res.send(token);
+    res.send({
+        token: token,
+        role: user.role
+      });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).send("Internal Server Error");

@@ -1,13 +1,13 @@
 import GenericService from "../services/GenericServices";
 import {jwtDecode} from "jwt-decode";
 class UserService extends GenericService {
-  
+
   login = (email, password) =>
     new Promise((resolve, reject) => {
       this.post("users/login", { email, password })
-        .then((token) => {
-          localStorage.setItem("token", token);
-          resolve(token);
+        .then((response) => {
+          localStorage.setItem("token", response.token);
+          resolve(response.token);
         })
         .catch((err) => {
           reject(err);

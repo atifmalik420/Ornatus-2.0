@@ -74,11 +74,11 @@ console.log(products)
   if (!products || products.length === 0) {
     return <p>No products available for this category</p>;
   }
-  
+
 
   return (
     <div className="category-main">
-      
+
       <div className="category-subdiv">
         <div className="breadcrumb-div">
           <Breadcrumb>
@@ -125,13 +125,13 @@ console.log(products)
           </Dropdown>
         </div>
       </div>
-        
+
 
         <Row md={4}>
-        {products.map((product) => (
+        {products.data.map((product) => (
           <Col key={product.id}>
             <Link to={`/collections/${category}/products/${product.timestamp_id}`}>
-              
+
               <div className="product-card">
                 <img src={product.image} alt="" className="product-img" />
                 <h6 className="product-name">{product.name}</h6>
@@ -142,7 +142,7 @@ console.log(products)
         ))}
       </Row>
 
-        
+
         <Pagination className="custom-pagination pagination-container">
         {Array.from({ length: totalPages }, (_, i) => (
           <Pagination.Item

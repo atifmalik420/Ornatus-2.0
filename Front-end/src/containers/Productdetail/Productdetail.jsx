@@ -36,7 +36,7 @@ const Productdetail = () => {
   console.log(price); 
 
   const getData = () => {
-  
+
     productService
       .getSingleProduct(productId["id"])
       .then((data) => {
@@ -97,7 +97,7 @@ const Productdetail = () => {
     description: products['description'] || " ",
     price: products['price'] || " ",
   };
-  
+
 
   const handleThumbnailClick = (index) => {
     setSelectedImageIndex(index);
@@ -121,12 +121,23 @@ const Productdetail = () => {
       setQuantity(quantity - 1);
     }
   };
+  const handleAlertForSubmission = () => {
+    const submitButton = document.querySelector(".submit-review-button");
+    submitButton.textContent = "Review Submitted";
+    submitButton.classList.add("submitted");
+
+    setTimeout(() => {
+      submitButton.textContent = "Submit Review";
+      submitButton.classList.remove("submitted");
+    }, 2000); // 2000 milliseconds = 2 seconds
+  };
   const submitReview = () => {
     if (userService.isLoggedIn()) {
       const user_id = userService.getLoggedInUser().id;
       console.log("The value of id of user is ",user_id);
       console.log("Values in the review are ",productId['id'],user_id,rating,reviewTitle,reviewBody);
-      reviewService
+      if(reviewTitle && reviewBody && rating){
+        reviewService
         .addReview({
           product_id: productId["id"],
           user_id: user_id,
@@ -139,10 +150,17 @@ const Productdetail = () => {
           setRating(0);
           setReviewTitle("");
           setReviewBody("");
+          // added alert for now. to add the Review Added logic on Submit button.
+          // replace alert with handleAlertForSubmission()
+          alert("Review Added Successfully.")
         })
         .catch((error) => {
           console.error("Error posting review:", error);
         });
+      }
+      else{
+        alert("Fill all required fields (Title, Body and Rating).");
+      }
     }
   };
   return (
@@ -281,13 +299,20 @@ const Productdetail = () => {
              <div >
               <ol>
               {reviews.map((review) => (<li className="review-display">
-                <h6 > <b>{review.title}</b></h6>
+                <div className="row review-results">
+                  <div className="col-10">
+                    <h6 > <b>{review.title}</b></h6>
+                  </div>
+                  <div className="col-2">
+                    <h6>{review.rating}</h6>
+                  </div>
+                </div>
                 <h6 >{review.review}</h6>
               </li>))}
               </ol>
-            
+
              </div>
-    
+
           </div>
           <b className="reviews-heading">Submit Review</b>
           {/* Display Rating Stars */}
@@ -341,7 +366,7 @@ const Productdetail = () => {
             >
               Submit Review
             </button>
-          
+
         </div>
       </div>
     </div>
