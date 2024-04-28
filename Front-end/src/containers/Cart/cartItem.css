@@ -3,7 +3,6 @@
   margin-top: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid gainsboro;
-  padding-bottom: 20px;
 }
 
 .cartItem:last-child{
@@ -23,8 +22,8 @@
 
 .cartItem__image{
   object-fit: contain;
-  width: 180px;
-  height: 180px;
+  width: 100px;
+  height: 100px;
 }
 
 .cartItem__title{

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Create, SimpleForm, TextInput, SelectInput } from 'react-admin';
 import dataProvider from '../Dataprovider';
-
-
+import axios from 'axios';
+import { ImageInput } from 'react-admin';
 async function getData(resource){
   const response = await dataProvider.getList(resource);
   return response.map(({ timestamp_id: id, categories: name }) => ({ id, name }));
 }
 
-const UCARE_API_KEY = 'YOUR_UCARE_API_KEY';
+const UCARE_API_KEY = '8815f8b098b5b093d681';
 
 const uploadImageToUCareCDN = async (file) => {
   const formData = new FormData();
@@ -31,13 +31,13 @@ const uploadImageToUCareCDN = async (file) => {
 
 const ProductCreate = (props) => {
   const [categories, setCategories] = useState([]);
-  const [styles, getStyles] = useState([]);
+  //const [styles, getStyles] = useState([]);
   const [imageCdnUrl, setImageCdnUrl] = useState('');
-
   const handleImageUpload = async (file) => {
     try {
-      const cdnUrl = await uploadImageToCDN(file.rawFile);
+      const cdnUrl = await uploadImageToUCareCDN(file.rawFile);
       setImageCdnUrl(cdnUrl);
+      console.log("The value of the image path is ",cdnUrl);
     } catch (error) {
       console.error('Error uploading image:', error);
     }

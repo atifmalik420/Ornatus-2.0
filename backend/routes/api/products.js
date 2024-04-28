@@ -194,7 +194,7 @@ router.delete("/:id", auth, admin, async (req, res) => {
 });
 
 // Insert a record
-router.post("/", auth, admin, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const client = await pool.connect();
     const body = req.body.data

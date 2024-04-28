@@ -1,4 +1,5 @@
 import './cartItem.css'
+import './cart.css'
 import { incrementQuantity, decrementQuantity, removeItem} from '../../redux/cartSlice'
 import { useDispatch } from 'react-redux'
 
