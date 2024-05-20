@@ -10,8 +10,8 @@ const OrdersShow = (props) => (
   <Show {...props}>
     <SimpleShowLayout>
       <NumberField source="id" />
-      <TextField source="status" />
-      <TextField source="content" />
+      <TextField source="user_id" />
+      <TextField source="amount" />
     </SimpleShowLayout>
   </Show>
 );

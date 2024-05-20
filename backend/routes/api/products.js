@@ -166,10 +166,11 @@ router.get("/:id", async (req, res) => {
   }
 });
 // Update a record
-router.put("/:id", auth, admin, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const client = await pool.connect();
-    await client.query(`UPDATE products SET name = $1, price = $2 WHERE id = $3`, [req.body.name, req.body.price, req.params.id]);
+    await client.query(`UPDATE products SET id=$1, timestamp_id=$2, name=$3, category_id=$4, style_id=$5, price=$6, description=$7, stock=$8, image=$9
+    WHERE id = $10`, [ req.body.id, req.body.timestamp_id, req.body.name,req.body.category_id,req.body.style_id, req.body.price,req.body.description,req.body.stock,req.body.image, req.params.id]);
     client.release();
 
     return res.send("Product updated successfully");
@@ -180,7 +181,7 @@ router.put("/:id", auth, admin, async (req, res) => {
 });
 
 // Delete a record
-router.delete("/:id", auth, admin, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const client = await pool.connect();
     await client.query(`DELETE FROM products WHERE id = $1`, [req.params.id]);

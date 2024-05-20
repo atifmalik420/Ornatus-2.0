@@ -22,7 +22,7 @@ const Productdetail = () => {
   const [reviews, setReviews] = useState(['']);
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+ // const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [reviewTitle, setReviewTitle] = useState("");
   const [reviewBody, setReviewBody] = useState("");
@@ -112,14 +112,16 @@ const Productdetail = () => {
       (prevIndex) => (prevIndex - 1 + images.length) % images.length
     );
   };
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
 
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+  const handleAddtoCart = () => {
+    const submitButton = document.querySelector(".add-to-cart-button");
+    submitButton.textContent = "Added to Cart";
+    submitButton.classList.add("added");
+
+    setTimeout(() => {
+      submitButton.textContent = "Add to cart";
+      submitButton.classList.remove("added");
+    },2000);
   };
   const handleAlertForSubmission = () => {
     const submitButton = document.querySelector(".submit-review-button");
@@ -152,7 +154,7 @@ const Productdetail = () => {
           setReviewBody("");
           // added alert for now. to add the Review Added logic on Submit button.
           // replace alert with handleAlertForSubmission()
-          alert("Review Added Successfully.")
+          handleAlertForSubmission()
         })
         .catch((error) => {
           console.error("Error posting review:", error);
@@ -206,7 +208,7 @@ const Productdetail = () => {
         </div>
 
         <div className="prod-buttons">
-          <button className="d3-button">View 3D Model</button>
+        
           <button className="ar-button" onClick={handleOpenModal}>View in AR</button>
           <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
@@ -232,30 +234,14 @@ const Productdetail = () => {
         </div>
         <hr className="sepration" />
 
-        <div className="add-to-cart">
-          <div className="quantity-button">
-            <button
-              className="quantity-button__decrease"
-              onClick={decreaseQuantity}
-            >
-              -
-            </button>
-            <span className="quantity-button__quantity">{quantity}</span>
-            <button
-              className="quantity-button__increase"
-              onClick={increaseQuantity}
-            >
-              +
-            </button>
-          </div>
-          
+        <div className="add-to-cart">          
           <button className="add-to-cart-button"
-          
-          onClick={() => 
+          onClick={() => {
           dispatch(addToCart({
             id, title, image, price
-          }))
-          }
+          }));
+          handleAddtoCart()
+          }}
           >Add to Cart</button>
           
         </div>
@@ -304,7 +290,7 @@ const Productdetail = () => {
                     <h6 > <b>{review.title}</b></h6>
                   </div>
                   <div className="col-2">
-                    <h6>{review.rating}</h6>
+                    <h6>{review.rating} Star</h6>
                   </div>
                 </div>
                 <h6 >{review.review}</h6>

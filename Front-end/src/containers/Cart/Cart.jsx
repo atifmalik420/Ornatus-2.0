@@ -1,23 +1,32 @@
 import React from 'react';
-import './cart.css'
-import table from './stable.png'
+import './cart.css';
 import { Link } from 'react-router-dom';
-import Total from './Total'
-import CartItem from './CartItem'
+import Total from './Total';
+import CartItem from './CartItem';
 import { useSelector } from 'react-redux'
 const Cart = () => {
     const cart = useSelector((state) => state.cart)
-    const [product] = React.useState({
-              photo: table,
-              name: 'Chelsea King Size Wooden Bed',
-              price: 'Rs 20,000',
-            });
+    
   return (
-    <div className="cart">
-      <div className="cart__left">
-        <div>
-          <h3>Shopping Cart</h3>
-          {cart?.map((item) => (
+
+      <div className="cart-main">
+            <div className="cart-items">
+                <h1 className="your-cart">Your Cart</h1>
+
+                <div className="cart-header-1">
+                    <h6 className="cart-headings">Product</h6>
+                
+                    <div className="cart-header-2">
+                        <h6 className="cart-headings">Quantity</h6>
+                        <h6 className="cart-headings">Price</h6>
+                    </div>
+                </div>
+
+                <hr className="items-sepration"/>
+
+                <div className="cart-item">
+
+        {cart?.map((item) => (
             <CartItem
               key={item.id}
               id={item.id}
@@ -27,52 +36,6 @@ const Cart = () => {
               quantity={item.quantity}
             />
           ))}
-        </div>
-      </div>
-
-      <div className="cart__right">
-        <Total/>
-      </div>
-
-
-      {/* <div className="cart-main">
-            <div className="cart-items">
-                <h1 className="your-cart">Your Cart</h1>
-
-                <div className="cart-header-1">
-                    <h6 className="cart-headings">Product</h6>
-                
-                    <div className="cart-header-2">
-                        <h6 className="cart-headings">Quantity</h6>
-                        <h6 className="cart-headings">Total</h6>
-                    </div>
-                </div>
-
-                <hr className="items-sepration"/>
-
-                <div className="cart-item">
-
-                    <div className="cart-product">
-                    <img src={product.photo} alt={product.name} className="cart-prod-img" />
-                    <h2 className="cart-prod-name">{product.name}</h2>
-
-                    </div>
-
-                    <div className="cart-prod-QT">
-
-                    <div className="quantity-button">
-                    <button className="quantity-button__decrease">
-                     -
-                    </button>
-                    <span className="quantity-button__quantity">Quantity</span>
-                    <button className="quantity-button__increase">
-                    +
-                    </button>
-                    </div>
-
-                    <h2 className="cart-prod-price">{product.price}</h2>
-
-                    </div>
 
                 </div>
                 <br />
@@ -93,7 +56,7 @@ const Cart = () => {
                 <div className='subtotal'>
 
                     <h4 className='subtotal'>Subtotal</h4>
-                    <h4 className='subtotal'>{product.price}</h4>
+                    <h4 className='subtotal'><Total/></h4>
                 </div>
                 <Link to={'/checkout'}>
                     <button className='checkout-button'>Checkout</button>
@@ -102,16 +65,12 @@ const Cart = () => {
 
             </div>
 
-        </div> */}
+        </div>
 
 
 
-    </div>
+
   )
-
-//     return(
-
-//     );
 };
 
 export default Cart;

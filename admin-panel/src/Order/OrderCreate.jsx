@@ -10,8 +10,8 @@ const OrdersCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
     <NumberInput source="id" />
-      <TextInput source="status" />
-      <TextInput source="content" />
+      <TextInput source="user_id" />
+      <TextInput source="amount" />
     </SimpleForm>
   </Create>
 );

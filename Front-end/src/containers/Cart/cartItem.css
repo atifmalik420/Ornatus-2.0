@@ -3,6 +3,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid gainsboro;
+  /* background: yellowgreen; */
 }
 
 .cartItem:last-child{
@@ -11,11 +12,11 @@
 
 .cartItem__info{
   padding-left: 20px;
+  display: flex;
 }
 
 .cartItem__info > button{
   border: unset;
-  margin-top: 10px;
   border-radius: 5px;
   background-color: transparent;
 }
@@ -27,21 +28,32 @@
 }
 
 .cartItem__title{
-  font-size: 20px;
-  font-weight: 450;
+  color: #76726B;
+font: "Merge One";
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.2px;
+width: 400px;
+margin-top: 15px;
 }
 
 .cartItem__price{
   font-size: 20px;
   line-height: 35px;
+  margin-left: 55px;
+  margin-top: 15px;
 }
 
 .cartItem__incrDec{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
   width: 100px;
+  height: 50px;
+
+  margin-top: 15px;
 }
 
 .cartItem__incrDec button{
@@ -65,6 +77,9 @@
 
 .cartItem__removeButton{
   color: rgb(241, 131, 131);
+  margin-left: 5px;
+  height: 30px;
+  margin-top: 20px;
 }
 
 .cartItem__removeButton:hover{

@@ -9,8 +9,8 @@ const OrderList = (props) => {
         >
           <Datagrid>
             <NumberField source="id" textAlign="left" />
-            <TextField source="status" />
-            <TextField source="content" />
+            <TextField source="user_id" />
+            <TextField source="amount" />
             <EditButton />
           </Datagrid>
         </List>

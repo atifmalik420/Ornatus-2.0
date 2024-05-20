@@ -17,10 +17,10 @@ function Total() {
  
   return (
     <div className="total">
-      <h2>ORDER SUMMARY</h2>
+      {/* <h2>ORDER SUMMARY</h2> */}
       <div>
         <p className="total__p">
-          total ({getTotal().totalQuantity} items) 
+          ({getTotal().totalQuantity} items) 
           : <strong>${getTotal().totalPrice}</strong>
         </p>
       </div>

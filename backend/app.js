@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var { Pool } = require("pg"); // Import Pool from pg library
+var { Pool } = require("pg");
 var config = require("config");
 var cors = require("cors");
 var app = express();
@@ -21,10 +21,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 var pool = new Pool({
   user: 'postgres',
-  host: 'localhost', // Or your PostgreSQL host
+  host: 'localhost',
   database: 'Furniture',
   password: 'lxo8999',
-  port: 5432, // Default PostgreSQL port
+  port: 5432,
 });
 
 // Your routes setup goes here
@@ -33,14 +33,13 @@ var usersRouter = require("./routes/api/users");
 var productsRouter = require("./routes/api/products");
 var categoriesRouter = require("./routes/api/categories");
 var reviewRouter = require("./routes/api/reviews");
+var orderRouter = require("./routes/api/orders");
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/category",categoriesRouter);
 app.use("/api/reviews",reviewRouter);
-
-//app.post('/api/reviews/', function() {});
-
+app.use("/api/orders",orderRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

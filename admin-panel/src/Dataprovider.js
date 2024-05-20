@@ -41,19 +41,51 @@ const dataProvider = {
         throw new Error(`Error creating ${resource}: ${error}`);
       });
   },
+  // update: (resource, params) => {
+  //   const { data } = params;
+  //   const url = `${apiUrl}${resource}/${data.id}`;
+  //   console.log("URL:", url)
+  //   console.log(data)
+  //   return axiosInstance.put(url, data)
+  //     .then((response) => response.data)
+  //     .catch((error) => {
+  //       throw new Error(`Error updating ${resource}: ${error}`);
+  //     });
+  // },
+  // update: (resource, params) => {
+  //   const { data } = params;
+  //   const url = `${apiUrl}${resource}/${data.id}`;
+  //   console.log("URL:", url);
+  //   console.log(data);
+    
+  //   return axiosInstance.put(url, data)
+  //     .then((response) => {
+  //       return { data: response.data }; // Ensure response has a 'data' key
+  //     })
+  //     .catch((error) => {
+  //       throw new Error(`Error updating ${resource}: ${error}`);
+  //     });
+  // },
   update: (resource, params) => {
     const { data } = params;
-    const url = `${apiUrl}/${resource}/${data.id}`;
-    console.log("URL:", url)
-    console.log(data)
+    const url = `${apiUrl}${resource}/${data.id}`;
+    
     return axiosInstance.put(url, data)
-      .then((response) => response.data)
+      .then((response) => {
+        // Ensure response has an 'id' key
+        if (!response.data.hasOwnProperty('id')) {
+          throw new Error(`Error updating ${resource}: Response data does not contain an 'id' key`);
+        }
+        return { data: response.data };
+      })
       .catch((error) => {
         throw new Error(`Error updating ${resource}: ${error}`);
       });
   },
-  delete: (resource, id) => {
-    return axiosInstance.delete(`${resource}/${id}`)
+  
+
+  delete: (resource, data) => {
+    return axiosInstance.delete(`${resource}/${data.id}`)
       .then((response) => response.data)
       .catch((error) => {
         throw new Error(`Error deleting ${resource}: ${error}`);

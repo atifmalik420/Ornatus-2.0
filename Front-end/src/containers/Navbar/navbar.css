@@ -155,3 +155,8 @@ a {
   max-width: 500px;
   margin: auto;
 }
+.cart-itemquan{
+  background: yellowgreen;
+  width: 10px;
+  color: #d27e00;
+}

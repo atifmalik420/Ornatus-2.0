@@ -1,23 +1,83 @@
 import React from "react";
-import { useState } from "react";
 import "./checkout.css";
-import prod from "./prod-2.png";
+import userService from "../../services/UserService";
+import CheckoutItem from "./CheckoutItem";
+import { useSelector } from 'react-redux';
+import { loadStripe } from '@stripe/stripe-js';
+import orderService from "../../services/OrderService";
 const Checkout = () => {
-  const [product, setProduct] = useState({
-    photo: prod,
-    name: "Chelsea King Size Wooden Bed",
-    price: "Rs 20,000",
-  });
+  const apiUrl = 'http://localhost:4000/api';
+  const cart = useSelector((state) => state.cart)
+  const getTotal = () => {
+    let totalQuantity = 0
+    let totalPrice = 0
+    cart.forEach(item => {
+      totalQuantity += item.quantity
+      totalPrice += item.price * item.quantity
+    })
+    return {totalPrice, totalQuantity}
+  }
+  const makePayment = async () => {
+    
+    const stripe = await loadStripe('pk_test_51MKzBiAY8SZCVCcYbvKyRhl6OWUuKO1ZrnwtuEC68ejd2lCbSBi2dhapAkQuZFHpx9QZMCpMwnPSLe8omPDRqWje00Z1eeK9h0');
+    const body = {
+      products: cart
+    };
+    console.log("Body from the make Payment",body)
+    const headers = {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer sk_test_51MKzBiAY8SZCVCcYbZCfwC1jmDREi7UP3KuHpq9dMDpzSYJOZJDrXkunhG0ws6xV6byu3XNckX1ruOQN7IwhxHyH00hpCXTHhT`
+    };
+    console.log("Stringify Body is ",JSON.stringify(body));
+    const response = await fetch(`${apiUrl}/orders/create-checkout-session`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+  
+    const session = await response.json();
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id
+    });
+    flag = true;
+    if (result.error) {
+      console.log(result.error);
+    }
+  }
+  const createOrder = () => {
+    
+    if (userService.isLoggedIn()) {
+      const user_id = userService.getLoggedInUser().id;
+      console.log("The value of id of user is ",user_id);
+        orderService
+        .addOrder({
+          user_id: user_id,
+          amount: getTotal().totalPrice,
+          items: cart
+        })
+        .then((response) => {
+          
+        })
+        .catch((error) => {
+          console.error("Error posting Order:", error);
+        });
+    }
+    alert("Order has been placed successfully!");
+  };
+  var flag = false;
   return (
     <div className="checkout-main">
       <div className="checkout-info">
         <div className="checkout-contact-info">
           <h4 className="contact">Contact</h4>
           <input
+          required
             type="text"
             className="contact-input"
             placeholder="Email or Mobile number"
+            value={userService.getLoggedInUser().email}
           />
+          {console.log("The value of the token in checkout is ",userService.getLoggedInUser())}
           <label htmlFor="" className="contact-label">
             <input type="checkbox" className="contact-checkbox" /> Email me with
             news and offers
@@ -29,6 +89,7 @@ const Checkout = () => {
           <div className="name-fields">
             <input
               type="text"
+              required
               placeholder="First Name"
               className="input-first-name"
             />
@@ -78,6 +139,7 @@ const Checkout = () => {
                 id="debitCreditCard"
                 name="paymentMethod"
                 className="payment-radiobtn"
+                onClick={makePayment}
               />{" "}
               Debit-Credit card
             </label>
@@ -132,30 +194,39 @@ const Checkout = () => {
             </label>
           </form>
         </div>
-
-        <button className="complete-order-btn">Complete Order</button>
+{console.log(flag)}
+        <button className="complete-order-btn" onClick={createOrder} disabled={!flag}>Complete Order</button>
       </div>
 
       <div className="checkout-items-bill">
-        <div className="checkout-items">
+        {/* <div className="checkout-items">
           <img src={product.photo} alt="" className="checkout-item-image" />
           <h6 className="checkout-item-name">{product.name}</h6>
-        </div>
-
+        </div> */}
+        {cart?.map((item) => (
+            <CheckoutItem
+              key={item.id}
+              id={item.id}
+              image={item.image}
+              title={item.title}
+              price={item.price} 
+              quantity={item.quantity}
+            />
+          ))}
         <div className="checkout-items-bill">
-          <div className="checkout-subtotal">
+          {/* <div className="checkout-subtotal">
             <h6 className="checkout-subtotal-title">Subtotal</h6>
             <h6 className="checkout-subtotal-amount">{product.price}</h6>
-          </div>
+          </div> */}
 
           <div className="checkout-shipping">
             <h6 className="checkout-subtotal-title">Shipping</h6>
             <h6 className="checkout-subtotal-amount">Free</h6>
           </div>
-
+          
           <div className="checkout-total">
             <h6 className="checkout-subtotal-title">Total </h6>
-            <h6 className="checkout-subtotal-amount">{product.price}</h6>
+            <h6 className="checkout-subtotal-amount">Rs {getTotal().totalPrice}</h6>
           </div>
         </div>
       </div>

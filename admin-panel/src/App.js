@@ -13,7 +13,7 @@ import CustomMenu from "./CustomMenu/CustomMenu";
 import { radiantLightTheme, radiantDarkTheme } from 'react-admin';
 import authProvider from './Authprovider';
 import Products from './Products/Products';
-import Sales from './Sales/Sales';
+//import Sales from './Sales/Sales';
 import Customers from './Customer/Customers';
 import Order from './Order/Order';
 
@@ -24,7 +24,7 @@ const App = () => (
     darkTheme={radiantDarkTheme} authProvider={authProvider}>
     <Resource name="Products" {...Products} icon={FaBoxOpen} />
     <Resource name="Orders" {...Order} />
-     <Resource name="Sales" {...Sales} />
+     {/* <Resource name="Sales" {...Sales} /> */}
     <Resource name="Users" {...Customers} />
   </Admin>
 );

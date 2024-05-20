@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert new user into the database
-    await client.query('INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4)', [name, email, hashedPassword, "admin"]);
+    await client.query('INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4)', [name, email, hashedPassword, "user"]);
 
     //Generate JWT token
     const token = jwt.sign({ name, email }, config.get("jwtPrivateKey"));
@@ -69,7 +69,8 @@ router.post("/login", async (req, res) => {
       _id: user._id,
       username: user.username,
       role: user.role,
-      id: user.timestamp_id, // Include timestamp_id in the token payload
+      email: user.email,
+      id: user.timestamp_id
     };
     const token = jwt.sign(tokenPayload, config.get("jwtPrivateKey"));
     console.log("Generated token is ", token);
