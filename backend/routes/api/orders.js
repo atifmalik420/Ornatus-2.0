@@ -31,7 +31,7 @@ router.post("/create-checkout-session", async(req, res) => {
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: "http://localhost:3000",
+        success_url: "http://localhost:3000/checkout",
         cancel_url:"http://localhost:3000/login"
     });
 
@@ -51,6 +51,25 @@ router.get("/", async (req, res) => {
     } catch (error) {
     console.error("Error retrieving orders:", error);
     return res.status(500).send("Internal Server Error");
+    }
+});
+
+router.get("/user/:user_id", async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const userId = req.params.user_id;
+
+        const result = await client.query('SELECT * FROM orders WHERE user_id = $1', [userId]);
+        client.release();
+
+        if (result.rows.length === 0) {
+            return res.status(404).send("No orders found for this user.");
+        }
+
+        return res.json(result.rows);
+    } catch (error) {
+        console.error("Error retrieving orders for user:", error);
+        return res.status(500).send("Internal Server Error");
     }
 });
 

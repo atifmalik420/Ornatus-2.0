@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './loginform.css';
 import { FcGoogle } from "react-icons/fc";
-import userService from "../../services/UserService"; 
+import userService from "../../services/UserService";
 
 const Loginform = () => {
     const [email, setEmail] = useState("");
@@ -14,6 +14,9 @@ const Loginform = () => {
         if (!email.trim()) {
             setEmailError("Please enter your email address.");
             return false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailError("Email format is invalid.");
+            return false;
         }
         return true;
     };
@@ -23,7 +26,6 @@ const Loginform = () => {
             setPasswordError("Please enter your password.");
             return false;
         }
-        
         return true;
     };
 
@@ -41,11 +43,11 @@ const Loginform = () => {
             userService.login(email, password)
                 .then(token => {
                     console.log("Login successful", token);
-                    window.alert("Logged In Successfully")
+                    window.alert("Logged In Successfully");
                     window.location.href = '/';
                 })
                 .catch(err => {
-                    setError("Invalid email or password"); 
+                    setError("Invalid email or password");
                     console.error("Login failed", err);
                 });
         }
@@ -61,20 +63,20 @@ const Loginform = () => {
 
                 <div className="input-form">
                     <form onSubmit={handleLogin} className="input-form">
-                        <input 
-                            type="text" 
-                            placeholder="Email Address" 
-                            className={`input-field ${emailError && 'error'}`} 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+                        <input
+                            type="text"
+                            placeholder="Email Address"
+                            className={`input-field ${emailError && 'error'}`}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         {emailError && <div className="error-message">{emailError}</div>}
-                        <input 
-                            type="password"  
-                            placeholder="Password" 
-                            className={`input-field ${passwordError && 'error'}`} 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            className={`input-field ${passwordError && 'error'}`}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         {passwordError && <div className="error-message">{passwordError}</div>}
                         <button type="submit" className="login-button">Login</button>

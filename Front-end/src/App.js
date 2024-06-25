@@ -11,7 +11,8 @@ import Shoppingcart from "./components/Shoppingcart/Shoppingcart";
 import Productpage from "./components/Productpage/Productpage";
 import Checkoutpage from "./components/Checkoutpage/Checkoutpage";
 import Categorypage from "./components/Categorypage/Categorypage";
-import Accountpage from './components/Accountpage/Accountpage';
+//import Accountpage from './components/Accountpage/Accountpage';
+import Profile from './components/Accountpage/Profile';
 //import userService from './services/UserService'; 
 function App() {
   
@@ -23,7 +24,7 @@ function App() {
         <Routes>
           <Route path='/' exact Component={Landingpage}/>
           <Route path='/cart' exact Component={Shoppingcart} />
-          <Route path='/account' exact Component={Accountpage} />
+          <Route path='/account' exact Component={Profile} />
           <Route path='/account/login' exact Component={Loginpage} />
           <Route path='/account/register' exact Component={Signuppage} />
           <Route path='/collections/:category' exact Component={Categorypage}/>

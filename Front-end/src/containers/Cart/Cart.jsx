@@ -3,9 +3,14 @@ import './cart.css';
 import { Link } from 'react-router-dom';
 import Total from './Total';
 import CartItem from './CartItem';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import userService from '../../services/UserService';
 const Cart = () => {
     const cart = useSelector((state) => state.cart)
+    const checkoutValidation = () => {
+        window.alert("Log In to Checkout");
+        window.location.href = '/account/login';
+    }
     
   return (
 
@@ -58,11 +63,13 @@ const Cart = () => {
                     <h4 className='subtotal'>Subtotal</h4>
                     <h4 className='subtotal'><Total/></h4>
                 </div>
-                <Link to={'/checkout'}>
+                {userService.isLoggedIn() ? (<Link to={"/checkout"}>
                     <button className='checkout-button'>Checkout</button>
-                </Link>
-
-
+                </Link>)
+                :
+                    <button className='checkout-button' onClick={checkoutValidation}>Checkout</button>
+                }
+                
             </div>
 
         </div>
