@@ -27,7 +27,7 @@ var pool = new Pool({
   port: 5432,
 });
 
-// Your routes setup goes here
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/api/users");
 var productsRouter = require("./routes/api/products");
